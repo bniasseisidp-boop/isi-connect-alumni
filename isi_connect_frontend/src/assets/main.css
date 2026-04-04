@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* Configuration des polices Google Fonts */
+
+:root {
+  font-family: 'Outfit', sans-serif;
+  --sky-blue: #0ea5e9;
+  --sky-blue-deep: #0284c7;
+  --bg-white: #ffffff;
+}
+
+body {
+  background-color: var(--bg-white);
+  /* Motif de Grille Numérique (Digital Grid) */
+  background-image: 
+    linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: #1e293b;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Bouton High-Contrast avec ecriture GARANTIE */
+.btn-digital {
+  background: var(--sky-blue-deep) !important;
+  color: white !important;
+  font-weight: 900 !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-digital:hover {
+  background: #0369a1 !important;
+  box-shadow: 0 8px 25px rgba(2, 132, 199, 0.5);
+  transform: translateY(-2px);
+}
+
+.wow-card {
+  background: white;
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+/* Typing Effect JS-like */
+.typing-intro {
+  overflow: hidden;
+  border-right: .15em solid var(--sky-blue);
+  white-space: nowrap;
+  letter-spacing: .05em;
+  animation: 
+    typing 2s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--sky-blue); }
+}
+
+/* Animations globales */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+@keyframes slide-in-bottom {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-in {
+  animation-duration: 500ms;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slide-in-bottom;
+}
