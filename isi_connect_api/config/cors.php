@@ -23,6 +23,7 @@ return [
         'http://localhost:5173',
         'https://isi-connect-alumni.onrender.com',
         'https://isi-connect-api.onrender.com',
+        'https://alumni.multibrain.cloud',
     ],
 
     'allowed_origins_patterns' => [],
