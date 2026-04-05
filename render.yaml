@@ -40,7 +40,6 @@ services:
   - type: web
     name: isi-connect-alumni
     runtime: static
-    plan: free
     rootDir: isi_connect_frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
