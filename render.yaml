@@ -9,6 +9,10 @@ services:
     envVars:
       - key: APP_ENV
         value: production
+      - key: APP_URL
+        value: https://isi-connect-api.onrender.com
+      - key: FRONTEND_URL
+        value: https://isi-connect-alumni.onrender.com
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY

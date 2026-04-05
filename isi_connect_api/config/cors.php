@@ -19,7 +19,11 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://localhost:5173',
+        'https://isi-connect-alumni.onrender.com',
+        env('FRONTEND_URL', 'https://isi-connect-alumni.onrender.com'),
+    ],
 
     'allowed_origins_patterns' => [],
 
