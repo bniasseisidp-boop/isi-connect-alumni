@@ -2,11 +2,10 @@ services:
   # --- Backend Laravel API ---
   - type: web
     name: isi-connect-api
-    env: php
     plan: free
+    runtime: docker
+    dockerfilePath: ./Dockerfile
     rootDir: isi_connect_api
-    buildCommand: chmod +x render-build.sh && ./render-build.sh
-    startCommand: php artisan migrate --force && php artisan db:seed --class=UserSeeder --force && vendor/bin/heroku-php-apache2 public/
     envVars:
       - key: APP_ENV
         value: production
