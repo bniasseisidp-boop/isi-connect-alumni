@@ -28,17 +28,15 @@ services:
       - key: QUEUE_CONNECTION
         value: sync
       - key: MAIL_HOST
-        value: smtp.gmail.com
-      - key: MAIL_SCHEME
-        value: smtps
+        value: smtp-relay.brevo.com
       - key: MAIL_PORT
-        value: "465"
+        value: "587"
       - key: MAIL_USERNAME
         value: multibrainmusic1@gmail.com
       - key: MAIL_PASSWORD
-        value: yctqwiwespmriowa
+        value: "xsmtpsib-2ed30150147b967a4261b5be6e12582d65d61a03ccec9a99533bcb9d6ed654f6-15m2YATMPJN6RJhb"
       - key: MAIL_ENCRYPTION
-        value: ssl
+        value: tls
       - key: MAIL_FROM_ADDRESS
         value: multibrainmusic1@gmail.com
       - key: MAIL_FROM_NAME
