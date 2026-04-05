@@ -28,17 +28,17 @@ services:
       - key: QUEUE_CONNECTION
         value: sync
       - key: MAIL_HOST
-        value: smtp.gmail.com
+        value: smtp.resend.com
       - key: MAIL_PORT
-        value: "587"
+        value: "465"
       - key: MAIL_USERNAME
-        value: multibrainmusic1@gmail.com
+        value: resend
       - key: MAIL_PASSWORD
-        value: usljakmqlwdwxcsb
+        value: re_TtG7nP5T_3FN2Gk2ahJuSFoqjKP6bk9Xp
       - key: MAIL_ENCRYPTION
-        value: tls
+        value: ssl
       - key: MAIL_FROM_ADDRESS
-        value: multibrainmusic1@gmail.com
+        value: onboarding@resend.dev
       - key: MAIL_FROM_NAME
         value: "ISI Suptech Alumni"
 
