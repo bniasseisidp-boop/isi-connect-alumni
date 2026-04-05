@@ -34,7 +34,7 @@ services:
       - key: MAIL_USERNAME
         value: multibrainmusic1@gmail.com
       - key: MAIL_PASSWORD
-        value: cuetufepxhrmrlf
+        value: yctqwiwespmriowa
       - key: MAIL_ENCRYPTION
         value: tls
       - key: MAIL_FROM_ADDRESS
