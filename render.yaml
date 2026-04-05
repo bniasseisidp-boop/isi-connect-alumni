@@ -38,7 +38,7 @@ services:
         value: "ISI Suptech Alumni"
 
   # --- Frontend Vue/Vite ---
-  - type: static
+  - type: static_site
     name: isi-connect-alumni
     env: static
     plan: free
