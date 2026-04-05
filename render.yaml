@@ -45,10 +45,7 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          type: web
-          name: isi-connect-api
-          property: host
+        value: https://isi-connect-api.onrender.com
     routes:
       - type: rewrite
         source: /*
