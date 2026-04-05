@@ -40,7 +40,6 @@ services:
   # --- Frontend Vue/Vite ---
   - type: static_site
     name: isi-connect-alumni
-    env: static
     plan: free
     rootDir: isi_connect_frontend
     buildCommand: npm install && npm run build
