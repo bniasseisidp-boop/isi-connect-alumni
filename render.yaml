@@ -32,7 +32,7 @@ services:
       - key: RESEND_KEY
         value: re_f6L28Ady_KB4muuxDhY7fiB5R36rMHboo
       - key: MAIL_FROM_ADDRESS
-        value: multibrainmusic1@gmail.com
+        value: onboarding@resend.dev
       - key: MAIL_FROM_NAME
         value: "ISI Suptech Alumni"
 
