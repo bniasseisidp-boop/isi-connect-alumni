@@ -11,6 +11,18 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        // Admin principal
+        $admin = User::updateOrCreate(
+            ['email' => 'multibrainmusic1@gmail.com'],
+            [
+                'name' => 'Admin Alumni',
+                'password' => Hash::make('password'),
+                'promotion_year' => 2024
+            ]
+        );
+        Profile::firstOrCreate(['user_id' => $admin->id]);
+
+        // Compte de test ISI
         $user = User::updateOrCreate(
             ['email' => 'bniasseisidp@groupeisi.com'],
             [
@@ -19,7 +31,6 @@ class UserSeeder extends Seeder
                 'promotion_year' => 2024
             ]
         );
-
         Profile::firstOrCreate(['user_id' => $user->id]);
     }
 }

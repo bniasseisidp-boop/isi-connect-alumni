@@ -2,8 +2,9 @@
 import axios from 'axios';
 
 // 1. On crée une "instance" d'axios
+const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8001/api', 
+  baseURL: `${baseURL}/api`, 
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -11,7 +12,7 @@ const apiClient = axios.create({
 });
 
 // Base URL pour les images stockées localement
-export const STORAGE_URL = 'http://localhost:8001/storage/';
+export const STORAGE_URL = `${baseURL}/storage/`;
 
 // 2. Intercepteur pour le Token
 // On récupère le token DIRECTEMENT depuis le localStorage 
