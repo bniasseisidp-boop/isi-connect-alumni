@@ -17,6 +17,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin Alumni',
                 'password' => Hash::make('password'),
+                'is_admin' => true,
+                'role' => 'admin',
                 'promotion_year' => 2024
             ]
         );
