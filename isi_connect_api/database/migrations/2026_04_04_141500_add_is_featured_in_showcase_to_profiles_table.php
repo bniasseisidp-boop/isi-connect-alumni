@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('profiles', function (Blueprint $table) {
-            $table->boolean('is_featured_in_showcase')->default(false)->after('is_visible');
-        });
+        if (!Schema::hasColumn('profiles', 'is_featured_in_showcase')) {
+            Schema::table('profiles', function (Blueprint $table) {
+                $table->boolean('is_featured_in_showcase')->default(false)->after('is_visible');
+            });
+        }
     }
 
     /**
