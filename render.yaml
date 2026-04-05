@@ -26,19 +26,11 @@ services:
           name: isi-connect-db
           property: connectionString
       - key: MAIL_MAILER
-        value: smtp
+        value: resend
       - key: QUEUE_CONNECTION
         value: sync
-      - key: MAIL_HOST
-        value: smtp-relay.brevo.com
-      - key: MAIL_PORT
-        value: "2525"
-      - key: MAIL_USERNAME
-        value: a732e3001@smtp-brevo.com
-      - key: MAIL_PASSWORD
-        value: "xsmtpsib-2ed30150147b967a4261b5be6e12582d65d61a03ccec9a99533bcb9d6ed654f6-15m2YATMPJN6RJhb"
-      - key: MAIL_ENCRYPTION
-        value: tls
+      - key: RESEND_KEY
+        value: re_f6L28Ady_KB4muuxDhY7fiB5R36rMHboo
       - key: MAIL_FROM_ADDRESS
         value: multibrainmusic1@gmail.com
       - key: MAIL_FROM_NAME
