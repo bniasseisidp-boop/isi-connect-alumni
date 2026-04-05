@@ -232,8 +232,9 @@ const installPWA = async () => {
     
     <!-- Background Effects & Interactive Canvas -->
     <div class="fixed inset-0 pointer-events-none z-0">
-      <canvas id="network-canvas" class="absolute inset-0 z-10 w-full h-full pointer-events-auto mix-blend-multiply"></canvas>
+      <canvas id="network-canvas" class="absolute inset-0 z-10 w-full h-full pointer-events-auto mix-blend-multiply opacity-60"></canvas>
       <div class="absolute inset-0 bg-[linear-gradient(rgba(14,165,233,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(14,165,233,0.05)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+
       <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-200/40 rounded-full blur-[120px] mix-blend-multiply opacity-50 animate-pulse"></div>
       <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-200/40 rounded-full blur-[100px] mix-blend-multiply opacity-40"></div>
     </div>
@@ -286,24 +287,25 @@ const installPWA = async () => {
     </nav>
 
     <!-- MOBILE NAVIGATION OVERLAY -->
-    <div v-if="isMenuOpen" class="fixed inset-0 z-[60] bg-slate-950/95 backdrop-blur-xl animate-in fade-in zoom-in duration-300 flex flex-col p-10">
-      <button @click="isMenuOpen = false" class="self-end p-4 text-white/50 hover:text-white transition-all text-2xl font-light">✕ Fermer</button>
+    <div v-if="isMenuOpen" class="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-3xl animate-in fade-in zoom-in duration-300 flex flex-col p-8 md:p-10">
+      <button @click="isMenuOpen = false" class="self-end p-4 text-white/50 hover:text-white transition-all text-xl font-light focus:outline-none">✕ Fermer</button>
       
-      <div class="flex-1 flex flex-col justify-center items-center gap-8">
+      <div class="flex-1 flex flex-col justify-center items-center gap-6 md:gap-8">
         <a v-for="link in [{h:'#home',l:'Accueil'},{h:'#features',l:'Le Hub'},{h:'#alumni',l:'Fierté'},{h:'#app-download',l:'Mobile'},{h:'#campus',l:'Campus'}]" 
            :key="link.h" :href="link.h" @click="isMenuOpen = false"
-           class="text-2xl font-black text-white hover:text-sky-400 uppercase tracking-[0.2em] transition-all">
+           class="text-xl md:text-2xl font-black text-white hover:text-sky-400 uppercase tracking-[0.2em] transition-all active:scale-95">
           {{ link.l }}
         </a>
-        <div class="w-20 h-px bg-white/10 my-4"></div>
-        <RouterLink to="/login" class="text-xl font-black text-sky-400 uppercase tracking-widest">Connexion</RouterLink>
-        <RouterLink to="/register" class="w-full bg-sky-500 text-white px-10 py-5 rounded-full text-center font-black uppercase tracking-widest text-sm shadow-2xl shadow-sky-500/20">Rejoindre ISI Alumni</RouterLink>
+        <div class="w-12 h-px bg-white/10 my-2"></div>
+        <RouterLink @click="isMenuOpen = false" to="/login" class="text-lg font-black text-sky-400 uppercase tracking-widest active:scale-95">Connexion</RouterLink>
+        <RouterLink @click="isMenuOpen = false" to="/register" class="w-full max-w-xs bg-sky-500 text-white px-8 py-4 rounded-full text-center font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-sky-500/20 active:scale-95">Rejoindre ISI Alumni</RouterLink>
       </div>
     </div>
 
 
     <!-- Hero Section -->
-    <section id="home" class="relative z-10 pt-48 pb-32 px-10 text-center flex flex-col items-center justify-center min-h-[80vh] bg-cover bg-center" :style="`background-image: url(${heroBg})`">
+    <section id="home" class="relative z-10 pt-32 md:pt-48 pb-20 md:pb-32 px-6 md:px-10 text-center flex flex-col items-center justify-center min-h-[80vh] bg-cover bg-center" :style="`background-image: url(${heroBg})`">
+
       <div class="absolute inset-0 bg-white/80 backdrop-blur-sm z-0"></div> <!-- Overlay for text readability -->
       
       <div class="relative z-10 inline-flex items-center space-x-2 bg-white border border-sky-100 shadow-xl shadow-sky-100 px-5 py-2.5 rounded-full mb-8 animate-fade-in-down">
@@ -311,10 +313,11 @@ const installPWA = async () => {
         <span class="text-[10px] font-black uppercase tracking-[0.3em] text-sky-600">Réseau d'Excellence Numérique</span>
       </div>
       
-      <h1 class="relative z-10 text-6xl md:text-8xl font-black tracking-tighter leading-none mb-8 animate-fade-in-up text-slate-900 drop-shadow-sm">
+      <h1 class="relative z-10 text-4xl md:text-8xl font-black tracking-tighter leading-none mb-8 animate-fade-in-up text-slate-900 drop-shadow-sm uppercase">
         L'Écosystème des <br>
-        <span class="text-sky-600 drop-shadow-lg">Alumni ISI Suptech</span>
+        <span class="text-sky-600 drop-shadow-lg font-black">Alumni ISI</span>
       </h1>
+
       
       <p class="relative z-10 text-lg md:text-xl text-slate-700 max-w-2xl font-bold mb-12 animate-fade-in-up delay-100">
         Bienvenue sur ISI Connect, la plateforme exclusive pour connecter les diplômés, propulser les carrières, partager des opportunités et faire rayonner l'excellence de notre institut.
@@ -334,10 +337,12 @@ const installPWA = async () => {
     </section>
 
     <!-- Platform Features -->
-    <section id="features" class="relative z-10 py-32 px-10 bg-white border-y border-slate-100 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+    <section id="features" class="relative z-10 py-20 md:py-32 px-6 md:px-10 bg-white border-y border-slate-100 shadow-[0_0_50px_rgba(0,0,0,0.02)]">
+
       <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-20 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
-          <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-slate-900 drop-shadow-sm">Que contient le <span class="text-sky-500">Hub</span> ?</h2>
+        <div class="text-center mb-12 md:mb-20 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
+          <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4 text-slate-900 drop-shadow-sm uppercase">Le <span class="text-sky-500">Hub</span> Digital</h2>
+
           <p class="text-slate-500 font-medium">Des outils taillés sur mesure pour votre évolution professionnelle.</p>
         </div>
         

@@ -1,5 +1,6 @@
 <template>
-  <div class="min-h-screen bg-[#0a0f1e] text-white font-sans flex flex-col overflow-x-hidden">
+  <div class="min-h-screen bg-[#0a0f1e] text-white font-sans flex flex-col overflow-x-hidden overflow-y-auto scroll-smooth">
+
 
     <!-- Animated BG -->
     <div class="fixed inset-0 pointer-events-none z-0">
@@ -8,7 +9,8 @@
     </div>
 
     <!-- TOP NAVBAR -->
-    <nav class="relative z-50 flex items-center justify-between px-6 md:px-10 py-4 md:py-5 border-b border-white/5 bg-white/3 backdrop-blur-2xl">
+    <nav class="relative z-50 flex items-center justify-between px-6 md:px-8 py-4 md:py-4 border-b border-white/5 bg-white/3 backdrop-blur-2xl">
+
       <div class="flex items-center gap-3 md:gap-5">
         <div class="bg-white p-2 rounded-xl shadow-xl shadow-sky-500/20 border border-white/10 shrink-0">
           <img src="../assets/images/isi.png" alt="ISI" class="h-7 md:h-9 w-auto" />
@@ -57,75 +59,76 @@
 
 
     <!-- MAIN -->
-    <main class="relative z-10 flex-1 max-w-7xl mx-auto w-full px-6 md:px-8 py-8 md:py-10">
+    <main class="relative z-10 flex-1 max-w-7xl mx-auto w-full px-4 md:px-8 py-6 md:py-10">
 
       <!-- 1. DASHBOARD TAB -->
-      <div v-if="activeTab === 'dashboard'" class="space-y-8 md:space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      <div v-if="activeTab === 'dashboard'" class="space-y-6 md:space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
         <!-- Hero -->
-        <div class="relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-white/3 backdrop-blur-sm p-10">
+        <div class="relative rounded-3xl md:rounded-[2rem] overflow-hidden border border-white/5 bg-white/3 backdrop-blur-sm p-6 md:p-8">
+
           <div class="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-transparent to-blue-600/10 pointer-events-none"></div>
-          <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+          <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8">
             <div>
-              <div class="inline-flex items-center gap-2 bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[10px] font-black uppercase tracking-[0.3em] px-4 py-2 rounded-full mb-6">
-                <span class="h-1.5 w-1.5 bg-sky-400 rounded-full animate-pulse"></span>
+              <div class="inline-flex items-center gap-2 bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] px-3 md:px-4 py-1.5 md:py-2 rounded-full mb-4 md:mb-6">
+                <span class="h-1 w-1 md:h-1.5 md:w-1.5 bg-sky-400 rounded-full animate-pulse"></span>
                 Système Opérationnel
               </div>
-              <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight mb-3">
-                Bonjour, <span class="text-sky-400">{{ auth.user.value?.name }}</span> 👋
+              <h2 class="text-2xl md:text-4xl font-black text-white tracking-tight mb-2 md:mb-3 leading-tight uppercase">
+                Bienvenue, <span class="text-sky-400">{{ auth.user.value?.name.split(' ')[0] }}</span> 👋
               </h2>
-              <p class="text-slate-400 font-medium max-w-lg">Gérez la plateforme ISI Connect. Voici les statistiques globales d'activité.</p>
+              <p class="text-slate-400 font-medium text-xs md:text-sm max-w-lg leading-relaxed">Gérez la plateforme ISI Connect. Voici les statistiques globales d'activité.</p>
             </div>
-            <div class="flex flex-col items-end gap-3 text-right">
-              <button @click="fetchStats" class="flex items-center gap-3 bg-white/5 hover:bg-white/10 text-white px-7 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all border border-white/10">
-                Rafraîchir les stats
+            <div class="flex flex-col items-start md:items-end gap-2 md:gap-3 text-left md:text-right w-full md:w-auto">
+              <button @click="fetchStats" class="w-full md:w-auto flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 text-white px-6 md:px-7 py-3 md:py-4 rounded-xl md:rounded-2xl font-black text-xs md:text-sm uppercase tracking-widest transition-all border border-white/10">
+                Rafraîchir
               </button>
-              <p class="text-slate-500 text-xs font-bold">Dernière mise à jour : {{ currentTime }}</p>
+              <p class="text-slate-500 text-[9px] md:text-xs font-bold uppercase tracking-widest">Dernière MAJ : {{ currentTime }}</p>
             </div>
           </div>
         </div>
 
         <!-- Real Stats -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
           <div 
             v-for="stat in dashboardStats" :key="stat.label"
-            class="relative bg-white/3 border border-white/5 rounded-2xl md:rounded-3xl p-5 md:p-7 hover:border-white/10 transition-all group"
+            class="relative bg-white/3 border border-white/5 rounded-xl md:rounded-[1.5rem] p-4 md:p-6 hover:border-white/10 transition-all group overflow-hidden"
           >
-            <div :class="stat.glow" class="absolute -top-6 -right-6 w-24 h-24 rounded-full blur-2xl opacity-10 group-hover:opacity-30 transition-opacity"></div>
-            <p class="text-[7px] md:text-[9px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-slate-500 mb-2 md:mb-4">{{ stat.label }}</p>
-            <p :class="stat.color" class="text-2xl md:text-4xl font-black mb-1">{{ stat.value }}</p>
-            <p class="text-slate-500 text-[10px] md:text-xs font-bold">{{ stat.sub }}</p>
+            <div :class="stat.glow" class="absolute -top-6 -right-6 w-20 h-20 md:w-24 md:h-24 rounded-full blur-2xl opacity-10 group-hover:opacity-30 transition-opacity"></div>
+            <p class="text-[7px] md:text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-2 md:mb-4">{{ stat.label }}</p>
+            <p :class="stat.color" class="text-xl md:text-4xl font-black mb-1 leading-none uppercase">{{ stat.value }}</p>
+            <p class="text-slate-500 text-[8px] md:text-xs font-bold uppercase tracking-widest">{{ stat.sub }}</p>
           </div>
         </div>
 
-
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
           <!-- Recent Users List -->
-          <div class="lg:col-span-3 bg-white/3 border border-white/5 rounded-3xl p-8">
-            <div class="flex items-center justify-between mb-8">
-              <h3 class="text-white font-black text-lg">Inscriptions Récentes</h3>
-              <button @click="activeTab = 'users'" class="text-[10px] font-black uppercase tracking-widest text-sky-400 hover:text-sky-300">Tout gérer →</button>
+          <div class="lg:col-span-3 bg-white/3 border border-white/5 rounded-3xl md:rounded-[2rem] p-5 md:p-6">
+
+            <div class="flex items-center justify-between mb-6 md:mb-8">
+              <h3 class="text-white font-black text-base md:text-lg uppercase tracking-tight">Inscriptions</h3>
+              <button @click="activeTab = 'users'" class="text-[9px] font-black uppercase tracking-widest text-sky-400 hover:text-sky-300">Tout voir →</button>
             </div>
             <div class="space-y-3">
-              <div v-for="u in recentUsers" :key="u.id" class="flex items-center gap-4 p-4 rounded-2xl bg-white/2 border border-white/3">
-                <div class="h-10 w-10 rounded-xl bg-sky-500/20 flex items-center justify-center font-black text-sky-400">{{ u.name?.[0] }}</div>
-                <div class="flex-1">
-                  <p class="text-sm font-black">{{ u.name }}</p>
-                  <p class="text-[10px] text-slate-500">{{ u.email }}</p>
+              <div v-for="u in recentUsers" :key="u.id" class="flex items-center gap-3 p-3 rounded-xl bg-white/2 border border-white/3">
+                <div class="h-8 w-8 rounded-lg bg-sky-500/20 flex items-center justify-center font-black text-sky-400 text-xs">{{ u.name?.[0] }}</div>
+                <div class="flex-1 min-w-0">
+                  <p class="text-xs font-black truncate uppercase">{{ u.name }}</p>
+                  <p class="text-[9px] text-slate-500 truncate leading-none mt-0.5">{{ u.email }}</p>
                 </div>
-                <span class="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/5 bg-white/5">{{ u.role }}</span>
+                <span class="text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full border border-white/5 bg-white/5 shrink-0">{{ u.role }}</span>
               </div>
             </div>
           </div>
           <!-- Fast Actions -->
-          <div class="lg:col-span-2 bg-white/3 border border-white/5 rounded-3xl p-8">
-              <h3 class="text-white font-black text-lg mb-6">Actions Rapides</h3>
+          <div class="lg:col-span-2 bg-white/3 border border-white/5 rounded-3xl p-6 md:p-8">
+              <h3 class="text-white font-black text-base md:text-lg mb-6 uppercase tracking-tight">Actions</h3>
               <div class="space-y-3">
-                <button @click="activeTab = 'users'" class="w-full flex items-center justify-between p-5 rounded-2xl bg-sky-500/10 border border-sky-500/20 text-sky-400 hover:bg-sky-500/20 transition-all font-black text-sm uppercase tracking-widest">
-                  Gérer les membres <span>👥</span>
+                <button @click="activeTab = 'users'" class="w-full flex items-center justify-between p-4 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 hover:bg-sky-500/20 transition-all font-black text-[10px] md:text-sm uppercase tracking-widest leading-none">
+                  Membres <span>👥</span>
                 </button>
-                <button @click="activeTab = 'moderation'" class="w-full flex items-center justify-between p-5 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-all font-black text-sm uppercase tracking-widest">
-                  Modérer le contenu <span>🛡️</span>
+                <button @click="activeTab = 'moderation'" class="w-full flex items-center justify-between p-4 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 hover:bg-purple-500/20 transition-all font-black text-[10px] md:text-sm uppercase tracking-widest leading-none">
+                  Modération <span>🛡️</span>
                 </button>
               </div>
           </div>
@@ -154,25 +157,27 @@
             <table class="w-full text-left">
               <thead>
                 <tr class="border-b border-white/5 bg-white/2">
-                  <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-500">Utilisateur</th>
-                  <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-500">Rôle</th>
-                  <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-500">Année Promo</th>
-                  <th class="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Actions</th>
+                  <th class="px-4 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-500">Utilisateur</th>
+                  <th class="px-4 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-500">Rôle</th>
+                  <th class="px-4 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-500">Promo</th>
+                  <th class="px-4 md:px-8 py-4 md:py-5 text-[9px] md:text-[10px] font-black uppercase tracking-widest text-slate-500 text-right">Actions</th>
                 </tr>
+
               </thead>
               <tbody class="divide-y divide-white/5">
                 <tr v-for="user in paginatedUsers" :key="user.id" class="hover:bg-white/2 transition-colors group">
-                  <td class="px-8 py-5">
-                    <div class="flex items-center gap-4">
-                      <div class="h-11 w-11 rounded-2xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center font-black text-sm">
+                  <td class="px-4 md:px-8 py-4 md:py-5">
+                    <div class="flex items-center gap-3 md:gap-4">
+                      <div class="h-9 w-9 md:h-11 md:w-11 rounded-xl md:rounded-2xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center font-black text-[10px] md:text-sm">
                         {{ user.name?.[0] }}
                       </div>
-                      <div>
-                        <p class="font-black text-sm">{{ user.name }}</p>
-                        <p class="text-[11px] text-slate-500">{{ user.email }}</p>
+                      <div class="min-w-0">
+                        <p class="font-black text-xs md:text-sm truncate uppercase">{{ user.name }}</p>
+                        <p class="text-[9px] md:text-[11px] text-slate-500 truncate leading-none mt-0.5">{{ user.email }}</p>
                       </div>
                     </div>
                   </td>
+
                   <td class="px-8 py-5">
                     <select 
                       @change="handleRoleUpdate(user, $event.target.value)"
@@ -225,7 +230,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           <!-- Jobs Moderation -->
-          <div class="bg-white/3 border border-white/5 rounded-[2rem] p-8">
+          <div class="bg-white/3 border border-white/5 rounded-3xl md:rounded-[2rem] p-5 md:p-8">
+
             <h3 class="font-black text-lg mb-6 flex items-center gap-3">💼 Offres d'emploi <span class="text-[10px] bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded-full">{{ moderatedJobs.length }}</span></h3>
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="job in moderatedJobs" :key="job.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
@@ -240,7 +246,8 @@
           </div>
 
            <!-- Forum Moderation -->
-           <div class="bg-white/3 border border-white/5 rounded-[2rem] p-8">
+           <div class="bg-white/3 border border-white/5 rounded-3xl md:rounded-[2rem] p-5 md:p-8">
+
             <h3 class="font-black text-lg mb-6 flex items-center gap-3">💬 Discussions Forum <span class="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full">{{ moderatedThreads.length }}</span></h3>
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="t in moderatedThreads" :key="t.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
@@ -654,4 +661,17 @@ onUnmounted(() => clearInterval(clockInterval))
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(56, 189, 248, 0.5);
 }
+/* Scrollbar personnalisée pour l'admin */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.2);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(56, 189, 248, 0.4);
+}
 </style>
+

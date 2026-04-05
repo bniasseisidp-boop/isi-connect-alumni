@@ -2,7 +2,8 @@
   <div class="space-y-12 animate-page-reveal relative">
     
     <!-- Hero Header: Matrix / Plasma Experience -->
-    <div class="relative overflow-hidden rounded-[4rem] bg-slate-950 p-16 md:p-24 text-white shadow-[0_40px_100px_rgba(14,165,233,0.15)] border-b-8 border-sky-500 group">
+    <div class="relative overflow-hidden rounded-[2rem] md:rounded-[3rem] bg-slate-950 p-6 md:p-14 text-white shadow-[0_40px_100px_rgba(14,165,233,0.15)] border-b-8 border-sky-500 group">
+
       
       <!-- Plasma Background (Crazy UI) -->
       <div class="absolute inset-0 z-0">
@@ -17,44 +18,48 @@
 
       <div class="relative z-10 flex flex-col items-center text-center">
         <!-- Status Indicator -->
-        <div class="flex items-center space-x-4 mb-10 bg-white/5 px-6 py-2.5 rounded-full border border-white/10 backdrop-blur-2xl animate-scale-in">
-          <div class="h-2 w-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_#4ade80]"></div>
-          <span class="text-[10px] font-black uppercase tracking-[0.5em] text-sky-300">PROTOCOLE ALUMNI : ACTIF</span>
+        <div class="flex items-center space-x-3 mb-8 md:mb-10 bg-white/5 px-4 md:px-6 py-2 md:py-2.5 rounded-full border border-white/10 backdrop-blur-2xl animate-scale-in">
+          <div class="h-1.5 w-1.5 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_#4ade80]"></div>
+          <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-sky-300">PROTOCOLE ALUMNI : ACTIF</span>
         </div>
 
         <!-- Beautiful Typography (Crazy Writing) -->
-        <h1 class="text-7xl md:text-9xl font-black mb-8 tracking-tighter leading-none animate-title-reveal" v-if="auth.user && auth.user.value">
+        <h1 class="text-3xl md:text-6xl font-black mb-6 tracking-tighter leading-none animate-title-reveal" v-if="auth.user && auth.user.value">
           HELLO, <span class="bg-gradient-to-r from-sky-400 via-blue-400 to-sky-600 bg-clip-text text-transparent animate-gradient-text">{{ auth.user.value.name.split(' ')[0] }}</span>
         </h1>
+
         
-        <p class="text-slate-400 text-xl font-medium max-w-3xl leading-relaxed opacity-0 animate-fade-in-up">
+        <p class="text-slate-400 text-sm md:text-lg font-medium max-w-3xl leading-relaxed opacity-0 animate-fade-in-up">
           Votre écosystème numérique est déverrouillé. Connectez-vous, partagez et propulsez votre carrière au sein du réseau d'élite <span class="text-white font-black underline decoration-sky-500 underline-offset-8">SUPTECH</span>.
         </p>
 
+
         <!-- CTA Hub -->
-        <div class="mt-12 flex space-x-6 opacity-0 animate-fade-in-up-delay">
-          <RouterLink to="/annuaire" class="px-10 py-5 bg-sky-500 hover:bg-sky-400 text-white rounded-3xl font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-sky-500/30 transition-all hover:-translate-y-2 active:scale-95">Explorer le Réseau</RouterLink>
-          <RouterLink to="/profil" class="px-10 py-5 bg-white/5 hover:bg-white/10 text-white rounded-3xl font-black text-xs uppercase tracking-[0.3em] border border-white/10 transition-all hover:bg-white/15">Accès Profil</RouterLink>
+        <div class="mt-10 md:mt-12 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 opacity-0 animate-fade-in-up-delay">
+          <RouterLink to="/annuaire" class="px-8 md:px-10 py-4 md:py-5 bg-sky-500 hover:bg-sky-400 text-white rounded-2xl md:rounded-3xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] shadow-2xl shadow-sky-500/30 transition-all hover:-translate-y-2 active:scale-95 text-center">Explorer le Réseau</RouterLink>
+          <RouterLink to="/profil" class="px-8 md:px-10 py-4 md:py-5 bg-white/5 hover:bg-white/10 text-white rounded-2xl md:rounded-3xl font-black text-[10px] md:text-xs uppercase tracking-[0.3em] border border-white/10 transition-all hover:bg-white/15 text-center">Accès Profil</RouterLink>
         </div>
       </div>
     </div>
 
     <!-- Metrics Grid: Animated Numbers -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div v-for="(stat, i) in metrics" :key="i" 
-           class="wow-card rounded-[3.5rem] p-12 group relative overflow-hidden transition-all duration-700 hover:-translate-y-4 border-2 border-slate-50">
+           class="wow-card rounded-[2.5rem] p-8 group relative overflow-hidden transition-all duration-700 hover:-translate-y-3 border-2 border-slate-50">
+
         <div class="flex items-center justify-between relative z-10">
-          <div class="p-6 rounded-[2.5rem] bg-slate-50 group-hover:bg-sky-500 transition-all duration-700 shadow-inner group-hover:shadow-sky-500/20">
-            <component :is="stat.icon" class="h-8 w-8 text-sky-500 group-hover:text-white transition-all duration-700 group-hover:rotate-12" />
+          <div class="p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] bg-slate-50 group-hover:bg-sky-500 transition-all duration-700 shadow-inner group-hover:shadow-sky-500/20">
+            <component :is="stat.icon" class="h-6 w-6 md:h-8 md:w-8 text-sky-500 group-hover:text-white transition-all duration-700 group-hover:rotate-12" />
           </div>
           <div class="text-right">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{{ stat.label }}</p>
-            <p class="text-5xl font-black text-slate-900 flex items-baseline justify-end group-hover:text-sky-600 transition-colors">
+            <p class="text-[8px] md:text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] md:tracking-[0.3em] mb-1 md:mb-2">{{ stat.label }}</p>
+            <p class="text-2xl md:text-4xl font-black text-slate-900 flex items-baseline justify-end group-hover:text-sky-600 transition-colors">
               <span class="animate-count-up">{{ stat.displayValue }}</span>
-              <span class="text-lg ml-1 opacity-40">+</span>
+              <span class="text-sm md:text-lg ml-1 opacity-40">+</span>
             </p>
           </div>
         </div>
+
         <!-- Digital light beam -->
         <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-sky-100 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       </div>
@@ -64,7 +69,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-8">
       
       <!-- Modernized Agenda -->
-      <section class="lg:col-span-2 wow-card rounded-[4rem] p-12 border-2 border-slate-50 bg-white hover:border-sky-50 transition-all duration-500 shadow-2xl shadow-slate-200/40">
+      <section class="lg:col-span-2 wow-card rounded-[3rem] p-10 border-2 border-slate-50 bg-white hover:border-sky-50 transition-all duration-500 shadow-2xl shadow-slate-200/40">
+
         <div class="flex items-center justify-between mb-16">
           <h2 class="text-4xl font-black text-slate-900 flex items-center tracking-tighter">
             <span class="bg-slate-900 h-10 w-3 rounded-full mr-6 animate-pulse"></span>
@@ -78,21 +84,22 @@
 
         <div v-if="latestEvents.length" class="space-y-8">
           <div v-for="event in latestEvents" :key="event.id" 
-               class="flex items-center p-10 rounded-[3.5rem] bg-slate-50 hover:bg-white border-2 border-transparent hover:border-sky-100 group/card transition-all duration-700 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]">
-            <div class="flex flex-col items-center justify-center bg-slate-900 rounded-[2.5rem] px-10 py-6 mr-12 group-hover/card:bg-sky-500 transition-all duration-700">
-              <span class="text-[10px] uppercase font-black text-sky-400 group-hover:text-sky-100 tracking-[0.4em] mb-2">
+               class="flex flex-col md:flex-row items-center p-6 md:p-10 rounded-3xl md:rounded-[3.5rem] bg-slate-50 hover:bg-white border-2 border-transparent hover:border-sky-100 group/card transition-all duration-700 hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)]">
+            <div class="flex flex-col items-center justify-center bg-slate-900 rounded-2xl md:rounded-[2.5rem] px-8 py-4 md:px-10 md:py-6 mr-0 md:mr-12 mb-4 md:mb-0 group-hover/card:bg-sky-500 transition-all duration-700 min-w-[100px]">
+              <span class="text-[8px] md:text-[10px] uppercase font-black text-sky-400 group-hover:text-sky-100 tracking-[0.4em] mb-1 md:mb-2">
                 {{ formatDateTime(event.starts_at, 'MMM') }}
               </span>
-              <span class="text-4xl font-black text-white">{{ formatDateTime(event.starts_at, 'DD') }}</span>
+              <span class="text-2xl md:text-4xl font-black text-white">{{ formatDateTime(event.starts_at, 'DD') }}</span>
             </div>
-            <div class="flex-1">
-              <h3 class="font-black text-slate-900 text-2xl mb-2 group-hover/card:text-sky-600 transition-colors">{{ event.title }}</h3>
-              <div class="flex items-center text-slate-400 font-bold text-xs uppercase tracking-[0.2em]">
-                <MapPinIcon class="h-4 w-4 mr-3 text-sky-500 animate-bounce" />
-                <span>{{ event.location }}</span>
+            <div class="flex-1 text-center md:text-left">
+              <h3 class="font-black text-slate-900 text-lg md:text-2xl mb-2 group-hover/card:text-sky-600 transition-colors">{{ event.title }}</h3>
+              <div class="flex items-center justify-center md:justify-start text-slate-400 font-bold text-[10px] md:text-xs uppercase tracking-[0.2em]">
+                <MapPinIcon class="h-3 w-3 md:h-4 md:w-4 mr-2 md:mr-3 text-sky-500 animate-bounce" />
+                <span class="truncate">{{ event.location }}</span>
               </div>
             </div>
           </div>
+
         </div>
         <div v-else class="py-32 text-center bg-slate-50 rounded-[4rem] border-4 border-dashed border-slate-100 grayscale hover:grayscale-0 transition-all">
            <CalendarIcon class="h-20 w-20 mx-auto mb-8 text-sky-200/50" />
@@ -101,7 +108,8 @@
       </section>
 
       <!-- Advanced Career Section -->
-      <section class="wow-card rounded-[4rem] p-12 bg-slate-900 text-white border-t-8 border-sky-500 shadow-2xl relative overflow-hidden group/jobs">
+      <section class="wow-card rounded-[3rem] p-10 bg-slate-900 text-white border-t-8 border-sky-500 shadow-2xl relative overflow-hidden group/jobs">
+
         <div class="absolute inset-0 bg-sky-500/5 opacity-0 group-hover/jobs:opacity-100 transition-opacity"></div>
         
         <div class="flex items-center justify-between mb-16 relative z-10">

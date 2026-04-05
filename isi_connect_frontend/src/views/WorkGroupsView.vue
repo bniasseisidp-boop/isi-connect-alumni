@@ -170,7 +170,9 @@ onMounted(fetchGroups)
   <div class="space-y-12 animate-page-reveal pb-20">
     
     <!-- Premium Header HUB -->
-    <div class="wow-card rounded-[3.5rem] p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
+    <div class="wow-card rounded-3xl md:rounded-[3rem] p-6 md:p-10 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
+
+
       <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] bg-[size:15px_15px]"></div>
       <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
         <div>
@@ -178,23 +180,26 @@ onMounted(fetchGroups)
             <UserGroupIcon class="h-4 w-4 text-sky-400 animate-pulse" />
             <span class="text-[9px] font-black uppercase tracking-[0.4rem] text-sky-300">HUB COLLABORATIF ALPHA</span>
           </div>
-          <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4 uppercase">
+          <h1 class="text-3xl md:text-5xl font-black tracking-tighter leading-none mb-4 uppercase font-black">
             Groupes de <span class="text-sky-400 text-glow">Travail</span>
           </h1>
-          <p class="text-slate-400 font-medium text-lg opacity-80 uppercase tracking-widest max-w-xl">
+
+          <p class="text-slate-400 font-medium text-sm md:text-lg opacity-80 uppercase tracking-widest max-w-xl">
             L'INTELLIGENCE COLLECTIVE EN ACTION. CRÉEZ OU REJOIGNEZ LA MATRICE.
           </p>
+
         </div>
         
         <button 
           @click="showModal = true"
-          class="group/btn relative flex items-center space-x-6 bg-white text-slate-950 px-10 py-6 rounded-[2.5rem] font-black text-[11px] uppercase tracking-[0.3em] shadow-2xl hover:bg-sky-500 hover:text-white transition-all duration-500 hover:-translate-y-2"
+          class="group/btn relative flex items-center justify-center space-x-4 md:space-x-6 bg-white text-slate-950 px-6 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[2rem] font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.3em] shadow-2xl hover:bg-sky-500 hover:text-white transition-all duration-500 hover:-translate-y-2 active:scale-95"
         >
-          <div class="h-10 w-10 bg-slate-950 text-white rounded-full flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-sky-500 transition-colors">
-            <PlusIcon class="h-6 w-6" />
+          <div class="h-8 w-8 md:h-10 md:w-10 bg-slate-950 text-white rounded-xl md:rounded-full flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-sky-500 transition-colors shrink-0">
+            <PlusIcon class="h-5 w-5 md:h-6 md:w-6" />
           </div>
-          <span>CRÉER UN HUB</span>
+          <span class="whitespace-nowrap">CRÉER UN HUB</span>
         </button>
+
       </div>
     </div>
 
@@ -204,12 +209,13 @@ onMounted(fetchGroups)
        <p class="mt-8 text-[11px] font-black uppercase tracking-[0.5em] text-sky-600 animate-pulse">SYNCHRONISATION DES HUBS...</p>
     </div>
 
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
       <div 
         v-for="group in groups" 
         :key="group.id"
-        class="wow-card rounded-[3.5rem] bg-white border-2 border-slate-50 flex flex-col overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-sky-500/[0.05] hover:border-sky-100 group/card"
+        class="wow-card rounded-3xl md:rounded-[3.5rem] bg-white border-2 border-slate-50 flex flex-col overflow-hidden transition-all duration-700 hover:shadow-2xl hover:shadow-sky-500/[0.05] hover:border-sky-100 group/card"
       >
+
         <!-- Group Visual -->
         <div class="h-56 relative overflow-hidden bg-slate-900">
            <img 
@@ -236,7 +242,9 @@ onMounted(fetchGroups)
         </div>
 
         <!-- Group Body -->
-        <div class="p-10 flex-1 flex flex-col">
+        <div class="p-6 md:p-8 flex-1 flex flex-col">
+
+
           <div class="flex items-center justify-between mb-6">
              <h3 class="text-2xl font-black text-slate-900 uppercase tracking-tight group-hover/card:text-sky-600 transition-colors">{{ group.name }}</h3>
              <div v-if="isCreator(group)" class="h-8 w-8 bg-sky-500/10 rounded-lg flex items-center justify-center text-sky-500" title="ADMINISTRATEUR">

@@ -10,6 +10,11 @@
   --bg-white: #ffffff;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+}
+
 body {
   background-color: var(--bg-white);
   /* Motif de Grille Numérique (Digital Grid) */
@@ -21,7 +26,30 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
+  overflow-y: auto;
 }
+
+/* Custom Scrollbar Premium - Plus visible */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(14, 165, 233, 0.35); /* Plus de contraste */
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(14, 165, 233, 0.6);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+
 
 /* Bouton High-Contrast avec ecriture GARANTIE */
 .btn-digital {
@@ -41,8 +69,9 @@ body {
 .wow-card {
   background: white;
   border: 1px solid rgba(14, 165, 233, 0.15);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
 }
+
 
 /* Typing Effect JS-like */
 .typing-intro {

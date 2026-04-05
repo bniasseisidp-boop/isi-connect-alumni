@@ -59,7 +59,9 @@ const filteredAlumni = computed(() => {
   <div class="space-y-10 animate-page-reveal">
     
     <!-- Digital Header & Search Hub -->
-    <div class="wow-card rounded-[3.5rem] p-10 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group">
+    <div class="wow-card rounded-3xl md:rounded-[3rem] p-6 md:p-10 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group">
+
+
       
       <!-- Binary Rain Overlay -->
       <div class="absolute inset-0 opacity-10 pointer-events-none select-none text-[8px] font-black grid grid-cols-12 gap-4">
@@ -72,9 +74,10 @@ const filteredAlumni = computed(() => {
             <SparklesIcon class="h-3 w-3 text-sky-400 animate-pulse" />
             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-sky-300">HUB DE TALENTS ISI</span>
           </div>
-          <h1 class="text-5xl font-black tracking-tighter leading-none">
+          <h1 class="text-3xl md:text-5xl font-black tracking-tighter leading-none uppercase">
             Annuaire des <span class="text-sky-400">Anciens</span>
           </h1>
+
         </div>
         
         <!-- Tech Search Bar -->
@@ -86,7 +89,8 @@ const filteredAlumni = computed(() => {
             v-model="searchTerm"
             type="text"
             placeholder="RECHERCHER UN TALENT..."
-            class="w-full bg-white/5 border-2 border-white/10 rounded-[2rem] py-5 pl-14 pr-6 text-xs font-black tracking-widest uppercase text-white placeholder-slate-500 focus:border-sky-500 focus:bg-white/10 focus:ring-0 transition-all duration-500 outline-none"
+            class="w-full bg-white/5 border-2 border-white/10 rounded-2xl md:rounded-[2rem] py-4 md:py-5 pl-14 pr-6 text-[10px] md:text-xs font-black tracking-widest uppercase text-white placeholder-slate-500 focus:border-sky-500 focus:bg-white/10 focus:ring-0 transition-all duration-500 outline-none"
+
           />
         </div>
       </div>
@@ -111,7 +115,8 @@ const filteredAlumni = computed(() => {
           :style="{ transitionDelay: (idx * 50) + 'ms' }"
         >
           <!-- Header Area -->
-          <div class="p-10 text-center pb-6">
+          <div class="p-8 text-center pb-6">
+
             <!-- Avatar HUB -->
             <div class="h-28 w-28 mx-auto mb-8 relative group/avatar">
               <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 to-blue-600 rounded-[2rem] rotate-6 group-hover/avatar:rotate-12 transition-all duration-500 shadow-lg group-hover/avatar:shadow-sky-500/20"></div>
@@ -146,7 +151,8 @@ const filteredAlumni = computed(() => {
           </div>
           
           <!-- Quick Actions HUB -->
-          <div class="px-8 pb-10 flex items-center justify-center space-x-2">
+          <div class="px-6 pb-8 flex items-center justify-center space-x-2">
+
             <button 
               @click="openChatWith(alumnus)"
               class="flex items-center justify-center space-x-2 bg-slate-950 text-white px-4 py-3 rounded-2xl font-black text-[9px] uppercase tracking-widest hover:bg-sky-500 transition-all shadow-xl hover:-translate-y-1 active:scale-95 flex-1"

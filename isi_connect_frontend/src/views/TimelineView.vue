@@ -130,22 +130,25 @@ const commentInputs = ref({})
   <div class="max-w-4xl mx-auto space-y-12 animate-page-reveal pb-20">
     
     <!-- Header Hero -->
-    <div class="wow-card rounded-[3.5rem] p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
+    <div class="wow-card rounded-3xl md:rounded-[3.5rem] p-6 md:p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
+
       <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#0ea5e9_1px,transparent_1px)] bg-[size:20px_20px]"></div>
       <div class="relative z-10">
         <div class="flex items-center space-x-3 mb-6 bg-sky-500/20 w-fit px-5 py-2 rounded-full border border-sky-400/30">
           <SparklesIcon class="h-3 w-3 text-sky-400 animate-pulse" />
           <span class="text-[9px] font-black uppercase tracking-[0.4em] text-sky-300">SOCIAL HUB DYNAMIQUE</span>
         </div>
-        <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+        <h1 class="text-3xl md:text-7xl font-black tracking-tighter leading-none mb-4">
           Fil <span class="text-sky-400 text-glow">Actu</span>
         </h1>
-        <p class="text-slate-400 font-medium text-lg leading-relaxed opacity-80 uppercase tracking-widest">DÉPLOYEZ VOS IDÉES, CONNECTEZ L'INTELLIGENCE.</p>
+        <p class="text-slate-400 font-medium text-sm md:text-lg leading-relaxed opacity-80 uppercase tracking-widest">DÉPLOYEZ VOS IDÉES, CONNECTEZ L'INTELLIGENCE.</p>
+
       </div>
     </div>
 
     <!-- Post Creation Matrix -->
-    <div class="wow-card rounded-[3rem] p-10 bg-white border-4 border-slate-50 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+    <div class="wow-card rounded-3xl md:rounded-[3rem] p-6 md:p-10 bg-white border-4 border-slate-50 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+
       <div class="flex gap-6">
         <div class="h-16 w-16 bg-slate-900 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden border-2 border-slate-950 shadow-lg">
            <img v-if="getUserPhoto(auth.user.value)" :src="getUserPhoto(auth.user.value)" class="h-full w-full object-cover" />
@@ -201,7 +204,8 @@ const commentInputs = ref({})
       <div v-for="post in posts" :key="post.id" class="wow-card rounded-[4rem] bg-white border-2 border-slate-50 shadow-2xl shadow-slate-200/30 overflow-hidden transition-all duration-700 hover:shadow-sky-500/[0.05]">
         
         <!-- Post Header -->
-        <div class="p-10 flex items-center justify-between border-b border-slate-50 bg-slate-50/30">
+        <div class="p-6 md:p-10 flex items-center justify-between border-b border-slate-50 bg-slate-50/30">
+
           <div class="flex items-center space-x-6">
             <div class="h-16 w-16 bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-950 shadow-lg">
                 <img v-if="getUserPhoto(post.user)" :src="getUserPhoto(post.user)" class="h-full w-full object-cover" />
@@ -222,8 +226,9 @@ const commentInputs = ref({})
         </div>
 
         <!-- Post Content -->
-        <div class="p-10 md:p-14 space-y-10">
-          <p class="text-xl font-medium text-slate-700 leading-relaxed whitespace-pre-wrap">
+        <div class="p-6 md:p-14 space-y-6 md:space-y-10">
+          <p class="text-base md:text-xl font-medium text-slate-700 leading-relaxed whitespace-pre-wrap">
+
             {{ post.body }}
           </p>
           
@@ -233,24 +238,25 @@ const commentInputs = ref({})
         </div>
 
         <!-- Post Actions HUB -->
-        <div class="px-10 py-8 bg-slate-50/50 flex items-center space-x-12 border-t border-slate-50">
+        <div class="px-6 md:px-10 py-6 md:py-8 bg-slate-50/50 flex items-center space-x-6 md:space-x-12 border-t border-slate-50 overflow-x-auto no-scrollbar">
           <button 
             @click="toggleLike(post)"
-            class="group flex items-center space-x-3 text-slate-400 hover:text-sky-500 transition-all font-black text-[10px] uppercase tracking-widest"
+            class="group flex items-center space-x-2 md:space-x-3 text-slate-400 hover:text-sky-500 transition-all font-black text-[9px] md:text-[10px] uppercase tracking-widest shrink-0"
           >
-            <div class="h-14 w-14 rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center transition-all group-hover:scale-110 shadow-sm group-active:scale-95" :class="post.is_liked ? 'bg-sky-500 border-sky-400 text-white' : ''">
-               <component :is="post.is_liked ? HandThumbUpSolidIcon : HandThumbUpIcon" class="h-6 w-6" />
+            <div class="h-10 w-10 md:h-14 md:w-14 rounded-xl md:rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center transition-all group-hover:scale-110 shadow-sm group-active:scale-95" :class="post.is_liked ? 'bg-sky-500 border-sky-400 text-white' : ''">
+               <component :is="post.is_liked ? HandThumbUpSolidIcon : HandThumbUpIcon" class="h-5 w-5 md:h-6 md:w-6" />
             </div>
             <span>{{ post.likes_count || 0 }} Likes</span>
           </button>
 
-          <div class="flex items-center space-x-3 text-slate-400 font-black text-[10px] uppercase tracking-widest">
-             <div class="h-14 w-14 rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center shadow-sm">
-                <ChatBubbleLeftRightIcon class="h-6 w-6" />
+          <div class="flex items-center space-x-2 md:space-x-3 text-slate-400 font-black text-[9px] md:text-[10px] uppercase tracking-widest shrink-0">
+             <div class="h-10 w-10 md:h-14 md:w-14 rounded-xl md:rounded-2xl bg-white border-2 border-slate-100 flex items-center justify-center shadow-sm">
+                <ChatBubbleLeftRightIcon class="h-5 w-5 md:h-6 md:w-6" />
              </div>
-             <span>{{ post.comments.length }} Commentaires</span>
+             <span>{{ post.comments.length }} Comms</span>
           </div>
         </div>
+
 
         <!-- Comments Section Matrix -->
         <div class="p-10 bg-white border-t border-slate-50 space-y-8">

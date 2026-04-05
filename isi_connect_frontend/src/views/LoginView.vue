@@ -1,5 +1,7 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-white">
+  <div class="min-h-screen flex items-center justify-center p-6 relative overflow-y-auto bg-white scroll-smooth">
+
+
     
     <!-- Wow Digital Hub: Binary Rain & Particles -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">

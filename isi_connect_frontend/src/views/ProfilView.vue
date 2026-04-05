@@ -98,37 +98,38 @@ const handleUpdateProfile = async () => {
   <div class="space-y-12 animate-page-reveal">
     
     <!-- Digital Profile Header -->
-    <div class="wow-card rounded-[3.5rem] p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
+    <div class="wow-card rounded-3xl md:rounded-[3.5rem] p-6 md:p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-2xl">
       <div class="absolute inset-0 opacity-5 pointer-events-none select-none text-[8px] font-black grid grid-cols-12 gap-4">
         <div v-for="n in 12" :key="n" class="animate-float-slow text-sky-200">{{ n % 2 === 0 ? '1' : '0' }}</div>
       </div>
 
-      <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+      <div class="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-10">
         <!-- Avatar HUB -->
-        <div class="relative h-40 w-40 group/avatar">
-          <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 via-blue-500 to-sky-600 rounded-[3rem] rotate-6 group-hover/avatar:rotate-12 transition-all duration-700 animate-pulse"></div>
-          <div class="absolute inset-1.5 bg-slate-900 rounded-[2.5rem] flex items-center justify-center overflow-hidden z-10 border-4 border-slate-950">
+        <div class="relative h-28 w-28 md:h-40 md:w-40 group/avatar">
+          <div class="absolute inset-0 bg-gradient-to-tr from-sky-400 via-blue-500 to-sky-600 rounded-2xl md:rounded-[3rem] rotate-6 group-hover/avatar:rotate-12 transition-all duration-700 animate-pulse"></div>
+          <div class="absolute inset-1.5 bg-slate-900 rounded-2xl md:rounded-[2.5rem] flex items-center justify-center overflow-hidden z-10 border-4 border-slate-950">
             <img v-if="previewUrl || getUserPhoto()" :src="previewUrl || getUserPhoto()" class="h-full w-full object-cover" />
-            <UserCircleIcon v-else class="h-20 w-20 text-slate-700 group-hover/avatar:scale-110 transition-transform duration-700" />
+            <UserCircleIcon v-else class="h-12 w-12 md:h-20 md:w-20 text-slate-700 group-hover/avatar:scale-110 transition-transform duration-700" />
           </div>
         </div>
 
         <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start space-x-3 mb-4 bg-sky-500/20 w-fit px-5 py-1.5 rounded-full border border-sky-400/30">
+          <div class="mx-auto md:mx-0 flex items-center justify-center md:justify-start space-x-3 mb-4 bg-sky-500/20 w-fit px-5 py-1.5 rounded-full border border-sky-400/30">
             <SparklesIcon class="h-3 w-3 text-sky-400 animate-pulse" />
             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-sky-300">PANNEAU DE CONTRÔLE PROFIL</span>
           </div>
-          <h1 class="text-5xl font-black tracking-tighter leading-none mb-3">Mon <span class="text-sky-400">Espace</span></h1>
-          <p class="text-slate-400 font-medium text-lg opacity-80 uppercase tracking-widest uppercase">GÉREZ VOTRE IDENTITÉ DANS L'ÉCOSYSTÈME ISI.</p>
+          <h1 class="text-3xl md:text-5xl font-black tracking-tighter leading-none mb-3 uppercase">Mon <span class="text-sky-400">Espace</span></h1>
+          <p class="text-slate-400 font-medium text-xs md:text-lg opacity-80 uppercase tracking-widest leading-tight md:leading-normal">GÉREZ VOTRE IDENTITÉ DANS L'ÉCOSYSTÈME ISI.</p>
         </div>
       </div>
     </div>
 
     <!-- Configuration Form -->
-    <form @submit.prevent="handleUpdateProfile" class="grid grid-cols-1 lg:grid-cols-2 gap-12 pb-20">
+    <form @submit.prevent="handleUpdateProfile" class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 pb-20">
       
       <!-- Primary Data Block -->
-      <section class="wow-card rounded-[4rem] p-10 md:p-14 bg-white border-2 border-slate-50 space-y-10 shadow-xl shadow-slate-200/50">
+      <section class="wow-card rounded-3xl md:rounded-[4rem] p-6 md:p-14 bg-white border-2 border-slate-50 space-y-8 md:space-y-10 shadow-xl shadow-slate-200/50">
+
         <div class="flex items-center space-x-4 mb-4">
           <IdentificationIcon class="h-8 w-8 text-sky-500" />
           <h2 class="text-3xl font-black text-slate-900 tracking-tighter uppercase">Spécifications</h2>

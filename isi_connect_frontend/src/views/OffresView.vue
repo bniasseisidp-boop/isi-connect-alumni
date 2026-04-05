@@ -90,30 +90,31 @@ onMounted(fetchJobs)
   <div class="space-y-12 animate-page-reveal">
     
     <!-- Digital Career Header -->
-    <div class="wow-card rounded-[3.5rem] p-12 md:p-16 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.2)]">
+    <div class="wow-card rounded-3xl md:rounded-[3rem] p-6 md:p-12 bg-slate-950 text-white border-b-8 border-sky-500 relative overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.2)]">
+
       
       <!-- Binary Rain Overlay -->
       <div class="absolute inset-0 opacity-5 pointer-events-none select-none text-[8px] font-black grid grid-cols-12 gap-4">
         <div v-for="n in 24" :key="n" class="animate-float-slow text-sky-200">{{ n % 2 === 0 ? '1' : '0' }}</div>
       </div>
 
-      <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-10">
-        <div class="max-w-2xl">
-          <div class="flex items-center space-x-3 mb-6 bg-sky-500/20 w-fit px-5 py-2 rounded-full border border-sky-400/30">
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-10">
+        <div class="max-w-2xl text-center md:text-left">
+          <div class="mx-auto md:mx-0 flex items-center space-x-3 mb-6 bg-sky-500/20 w-fit px-5 py-2 rounded-full border border-sky-400/30">
             <SparklesIcon class="h-3 w-3 text-sky-400 animate-pulse" />
             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-sky-300">HUB CARRIÈRE SUPTECH</span>
           </div>
-          <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+          <h1 class="text-3xl md:text-5xl font-black tracking-tighter leading-none mb-4">
             Opportunités <span class="text-sky-400">Digitales</span>
           </h1>
-          <p class="text-slate-400 font-medium text-lg leading-relaxed opacity-80 uppercase tracking-widest">PROPULSEZ VOTRE AVENIR DANS L'ÉCOSYSTÈME ISI.</p>
+          <p class="text-slate-400 font-medium text-sm md:text-lg leading-relaxed opacity-80 uppercase tracking-widest">PROPULSEZ VOTRE AVENIR DANS L'ÉCOSYSTÈME ISI.</p>
         </div>
         
         <button
           @click="showModal = true"
-          class="flex items-center justify-center bg-sky-500 hover:bg-sky-400 text-white px-10 py-6 rounded-[2rem] font-black text-[10px] uppercase tracking-[0.3em] transition-all duration-500 hover:-translate-y-2 active:scale-95 shadow-2xl shadow-sky-500/40"
+          class="flex items-center justify-center bg-sky-500 hover:bg-sky-400 text-white px-8 py-5 rounded-2xl md:rounded-[1.5rem] font-black text-[10px] uppercase tracking-[0.3em] transition-all duration-500 hover:-translate-y-2 active:scale-95 shadow-2xl shadow-sky-500/40"
         >
-          <PlusIcon class="h-5 w-5 mr-4" />
+          <PlusIcon class="h-5 w-5 mr-3 md:mr-4" />
           PUBLIER UNE OFFRE
         </button>
       </div>
@@ -134,8 +135,10 @@ onMounted(fetchJobs)
       <div 
         v-for="job in jobList" 
         :key="job.id"
-        class="wow-card rounded-[3rem] bg-white border-2 border-slate-50 p-10 flex flex-col md:flex-row items-start md:items-center justify-between transition-all duration-700 hover:border-sky-100 hover:shadow-2xl hover:shadow-sky-500/[0.05] group/card"
+        class="wow-card rounded-3xl md:rounded-[3rem] bg-white border-2 border-slate-50 p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between transition-all duration-700 hover:border-sky-100 hover:shadow-2xl hover:shadow-sky-500/[0.05] group/card"
       >
+
+
         <div class="flex-1">
           <div v-if="job.image_path" class="mb-6 rounded-3xl overflow-hidden h-48 w-full border-2 border-slate-50">
              <img :src="STORAGE_URL + job.image_path" class="w-full h-full object-cover" />
