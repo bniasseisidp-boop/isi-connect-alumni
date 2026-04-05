@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // 1. On crée une "instance" d'axios
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
+const baseURL = 'https://isi-connect-api.onrender.com';
 const apiClient = axios.create({
   baseURL: `${baseURL}/api`, 
   headers: {
