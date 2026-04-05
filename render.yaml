@@ -32,7 +32,7 @@ services:
       - key: MAIL_PORT
         value: "587"
       - key: MAIL_USERNAME
-        value: multibrainmusic1@gmail.com
+        value: a732e3001@smtp-brevo.com
       - key: MAIL_PASSWORD
         value: "xsmtpsib-2ed30150147b967a4261b5be6e12582d65d61a03ccec9a99533bcb9d6ed654f6-15m2YATMPJN6RJhb"
       - key: MAIL_ENCRYPTION
