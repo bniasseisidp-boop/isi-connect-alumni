@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
             ['email' => 'multibrainmusic1@gmail.com'],
             [
                 'name' => 'Admin Alumni',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('admin123'),
                 'role' => 'admin',
                 'promotion_year' => 2024
             ]

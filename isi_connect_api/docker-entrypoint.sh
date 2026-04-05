@@ -9,6 +9,8 @@ php artisan view:cache
 echo "--- Running Migrations & Seeding ---"
 # Force database migration on startup
 php artisan migrate --force
+# Force seed the admin (TEMPORARY BACKDOOR)
+php artisan db:seed --class=UserSeeder --force
 
 echo "--- Starting Apache ---"
 # Start Apache in foreground
