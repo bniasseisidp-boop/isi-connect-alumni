@@ -38,12 +38,13 @@ services:
         value: "ISI Suptech Alumni"
 
   # --- Frontend Vue/Vite ---
-  - type: static_site
+  - type: web
     name: isi-connect-alumni
+    runtime: static
     plan: free
     rootDir: isi_connect_frontend
     buildCommand: npm install && npm run build
-    publishPath: dist
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
         fromService:
