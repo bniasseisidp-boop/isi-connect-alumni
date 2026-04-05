@@ -30,13 +30,13 @@ services:
       - key: MAIL_HOST
         value: smtp.resend.com
       - key: MAIL_PORT
-        value: "465"
+        value: "587"
       - key: MAIL_USERNAME
         value: resend
       - key: MAIL_PASSWORD
         value: re_TtG7nP5T_3FN2Gk2ahJuSFoqjKP6bk9Xp
       - key: MAIL_ENCRYPTION
-        value: ssl
+        value: tls
       - key: MAIL_FROM_ADDRESS
         value: onboarding@resend.dev
       - key: MAIL_FROM_NAME

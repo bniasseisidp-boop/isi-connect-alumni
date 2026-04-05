@@ -29,7 +29,7 @@ class UserInvited extends Mailable
     /**
      * Get the message envelope.
      */
-    public function __getEnvelope(): Envelope
+    public function envelope(): Envelope
     {
         return new Envelope(
             subject: 'Bienvenue sur ISI Suptech Alumni',
