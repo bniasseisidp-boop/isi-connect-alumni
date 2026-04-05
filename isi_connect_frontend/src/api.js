@@ -9,7 +9,7 @@ const apiClient = axios.create({
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   },
-  timeout: 60000
+  timeout: 120000
 });
 
 // Base URL pour les images stockées localement
