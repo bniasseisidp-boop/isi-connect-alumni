@@ -227,9 +227,6 @@ onMounted(fetchThread)
       </div>
 
     </div>
-
-
-    </div>
   </div>
 </template>
 

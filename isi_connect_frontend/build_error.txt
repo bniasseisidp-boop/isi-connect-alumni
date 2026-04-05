@@ -1,0 +1,22 @@
+
+> isi_connect_frontend@0.0.0 build
+> vite build
+
+[36mvite v7.1.12 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 25 modules transformed.
+[31m✗[39m Build failed in 910ms
+[31merror during build:
+[31m[vite:vue] [plugin vite:vue] src/views/ForumThreadView.vue (233:3): Invalid end tag.[31m
+file: [36mC:/Users/azoto/OneDrive/Desktop/copie projet Alumni/isi_connect_frontend/src/views/ForumThreadView.vue:233:3[31m
+SyntaxError: [plugin vite:vue] src/views/ForumThreadView.vue (233:3): Invalid end tag.
+    at createCompilerError (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:1360:17)
+    at emitError (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:2957:5)
+    at Object.onclosetag (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:2356:9)
+    at Tokenizer.stateInClosingTagName (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:785:16)
+    at Tokenizer.parse (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:1143:16)
+    at Object.baseParse (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.prod.js:2989:13)
+    at Object.parse (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-dom\dist\compiler-dom.cjs.prod.js:665:23)
+    at Object.parse$1 [as parse] (C:\Users\azoto\OneDrive\Desktop\copie projet Alumni\isi_connect_frontend\node_modules\@vue\compiler-sfc\dist\compiler-sfc.cjs.js:1801:24)
+    at createDescriptor (file:///C:/Users/azoto/OneDrive/Desktop/copie%20projet%20Alumni/isi_connect_frontend/node_modules/@vitejs/plugin-vue/dist/index.js:79:42)
+    at transformMain (file:///C:/Users/azoto/OneDrive/Desktop/copie%20projet%20Alumni/isi_connect_frontend/node_modules/@vitejs/plugin-vue/dist/index.js:1633:33)[39m
