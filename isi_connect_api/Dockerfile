@@ -37,8 +37,10 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Make entrypoint executable
-RUN chmod +x docker-entrypoint.sh
+# Fix Windows CRLF line endings on the script, then make executable
+RUN apt-get update && apt-get install -y dos2unix \
+    && dos2unix docker-entrypoint.sh \
+    && chmod +x docker-entrypoint.sh
 
 # Run entrypoint
 CMD ["./docker-entrypoint.sh"]
