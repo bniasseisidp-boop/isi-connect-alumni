@@ -150,25 +150,34 @@ const handleRegister = async () => {
   }
 
   try {
-    const success = await auth.register(
+    // Step 1: Create the account
+    await auth.registerOnly(
       name.value,
       email.value,
       promotionYear.value,
       password.value,
       passwordConfirmation.value
     );
-    
-    if (success) {
+    // Step 2: Auto-login
+    try {
+      await auth.login(email.value, password.value);
       router.push({ name: 'dashboard' });
-    } else {
-      errorMessage.value = "ERREUR D'ACCÈS HUB";
+    } catch (loginErr) {
+      // Registration worked but auto-login failed → redirect to login page
+      router.push({ name: 'login', query: { registered: '1' } });
     }
   } catch (error) {
-    errorMessage.value = "DÉFAILLANCE RÉSEAU";
+    if (error.response && error.response.status === 422) {
+      const errors = error.response.data;
+      const firstError = Object.values(errors)[0];
+      errorMessage.value = Array.isArray(firstError) ? firstError[0].toUpperCase() : 'DONNÉES INVALIDES';
+    } else {
+      errorMessage.value = "DÉFAILLANCE RÉSEAU - RÉESSAYEZ";
+    }
     console.error(error);
   } finally {
     isLoading.value = false;
-    if (errorMessage.value) setTimeout(() => errorMessage.value = null, 4000)
+    if (errorMessage.value) setTimeout(() => errorMessage.value = null, 5000)
   }
 };
 </script>

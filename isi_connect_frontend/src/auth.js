@@ -45,14 +45,19 @@ async function login(email, password) {
   }
 }
 
-async function register(name, email, promotion_year, password, password_confirmation) {
-  await apiClient.post('/register', {
+// registerOnly: crée le compte sans auto-login
+async function registerOnly(name, email, promotion_year, password, password_confirmation) {
+  return await apiClient.post('/register', {
     name,
     email,
     promotion_year,
     password,
     password_confirmation
   });
+}
+
+async function register(name, email, promotion_year, password, password_confirmation) {
+  await registerOnly(name, email, promotion_year, password, password_confirmation);
   return await login(email, password);
 }
 
@@ -102,6 +107,7 @@ export function useAuth() {
     mustChangePassword: readonly(mustChangePassword),
     login,
     register,
+    registerOnly,
     logout,
     fetchUser,
     setUser,

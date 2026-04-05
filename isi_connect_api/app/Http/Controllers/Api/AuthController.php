@@ -132,7 +132,16 @@ class AuthController extends Controller
         $user->save();
 
         // Envoi de l'email
-        Mail::to($user->email)->send(new PasswordReset($user->name, $user->email, $tempPassword));
+        try {
+            Mail::to($user->email)->send(new PasswordReset($user->name, $user->email, $tempPassword));
+        } catch (\Exception $e) {
+            // Si l'email échoue, on remet l'ancien état (ou on log juste l'erreur)
+            \Illuminate\Support\Facades\Log::error('Mail sending failed: ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Compte mis à jour mais l\'email n\'a pas pu être envoyé. Contactez l\'administrateur.',
+                'error' => 'mail_failed'
+            ], 500);
+        }
 
         return response()->json([
             'message' => 'Code de récupération envoyé par email.'

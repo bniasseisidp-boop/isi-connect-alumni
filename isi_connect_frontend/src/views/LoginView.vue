@@ -118,12 +118,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute, RouterLink } from 'vue-router'
 import { useAuth } from '../auth'
 
 const auth = useAuth()
 const router = useRouter()
+const route = useRoute()
 
 const email = ref('')
 const password = ref('')
@@ -131,6 +132,13 @@ const loading = ref(false)
 const error = ref(null)
 const successMessage = ref(null)
 const isResetMode = ref(false)
+
+onMounted(() => {
+  if (route.query.registered === '1') {
+    successMessage.value = 'COMPTE CRÉÉ AVEC SUCCÈS ! CONNECTEZ-VOUS.'
+    setTimeout(() => successMessage.value = null, 6000)
+  }
+})
 
 // Binary Rain Physics
 const getBinaryStyle = (n) => {
@@ -161,17 +169,23 @@ const handleLogin = async () => {
 
   if (isResetMode.value) {
       try {
-          const response = await auth.forgotPassword(email.value);
-          successMessage.value = 'CODE ENVOYÉ ! VÉRIFIEZ VOTRE BOÎTE MAIL.';
-          isResetMode.value = false;
+          await auth.forgotPassword(email.value);
+          successMessage.value = 'CODE ENVOYÉ ! VÉRIFIEZ VOTRE BOÎTE MAIL.'
+          isResetMode.value = false
       } catch (err) {
-          error.value = 'EMAIL NON RECONNU DANS LA MATRICE';
+          if (err.response && err.response.status === 422) {
+            error.value = 'EMAIL NON RECONNU DANS LA MATRICE'
+          } else if (err.response && err.response.status === 500) {
+            error.value = 'ERREUR ENVOI EMAIL - RÉESSAYEZ PLUS TARD'
+          } else {
+            error.value = 'ERREUR RÉSEAU - VÉRIFIEZ VOTRE CONNEXION'
+          }
       } finally {
-          loading.value = false;
-          if (successMessage.value) setTimeout(() => successMessage.value = null, 6000);
-          if (error.value) setTimeout(() => error.value = null, 4000);
+          loading.value = false
+          if (successMessage.value) setTimeout(() => successMessage.value = null, 6000)
+          if (error.value) setTimeout(() => error.value = null, 5000)
       }
-      return;
+      return
   }
 
   try {
