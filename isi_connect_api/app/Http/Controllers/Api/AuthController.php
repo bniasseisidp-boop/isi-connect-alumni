@@ -9,7 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Auth; // Pour le login
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordReset;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -105,6 +108,34 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Mot de passe mis à jour avec succès.',
             'must_change_password' => false
+        ]);
+    }
+
+
+    /**
+     * Mot de passe oublié : Générer un code temporaire et envoyer par email.
+     */
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        
+        // Génération d'un code temporaire aléatoire
+        $tempPassword = Str::random(8);
+        
+        // Mise à jour de l'utilisateur
+        $user->password = Hash::make($tempPassword);
+        $user->must_change_password = true;
+        $user->save();
+
+        // Envoi de l'email
+        Mail::to($user->email)->send(new PasswordReset($user->name, $user->email, $tempPassword));
+
+        return response()->json([
+            'message' => 'Code de récupération envoyé par email.'
         ]);
     }
 

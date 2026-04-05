@@ -52,7 +52,7 @@
             </div>
           </div>
 
-          <div class="space-y-2 group">
+          <div v-if="!isResetMode" class="space-y-2 group">
             <label class="block text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-sky-600 ml-4 transition-colors">CLEF D'ACCÈS</label>
             <input 
               v-model="password" 
@@ -61,6 +61,15 @@
               class="w-full px-8 py-5 bg-slate-50 border-2 border-slate-100 rounded-[2.5rem] text-slate-900 placeholder-slate-300 focus:border-sky-500 focus:bg-white transition-all duration-500"
               placeholder="••••••••"
             />
+            <div class="flex justify-end pr-4">
+              <button @click.prevent="isResetMode = true; error = null" class="text-[9px] font-black text-slate-400 hover:text-sky-500 uppercase tracking-widest transition-colors">Mot de passe oublié ?</button>
+            </div>
+          </div>
+
+          <div v-else class="space-y-4">
+              <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center px-4">
+                  SAISISSEZ VOTRE EMAIL POUR RECEVOIR UN NOUVEAU CODE D'ACCÈS TEMPORAIRE.
+              </p>
           </div>
 
           <!-- Digital Hub Button: HIGH CONTRAST GUARANTEED -->
@@ -68,12 +77,18 @@
             type="submit" 
             :disabled="loading"
             class="btn-digital w-full py-6 rounded-[2.5rem] uppercase tracking-[0.3em] text-xs relative overflow-hidden"
+            :class="isResetMode ? 'bg-rose-500 hover:bg-rose-600' : ''"
           >
             <span class="relative z-10 flex items-center justify-center">
-              {{ loading ? 'HUB: CONNEXION...' : 'ACCÉDER AU RÉSEAU' }}
+              {{ loading ? (isResetMode ? 'ENVOI...' : 'HUB: CONNEXION...') : (isResetMode ? 'RÉCUPÉRER MON ACCÈS' : 'ACCÉDER AU RÉSEAU') }}
             </span>
             <div class="absolute inset-0 bg-white/20 -translate-x-full animate-digital-scan"></div>
           </button>
+
+          <button v-if="isResetMode" @click.prevent="isResetMode = false; error = null" class="w-full text-center text-[10px] font-black text-slate-400 hover:text-slate-600 uppercase tracking-widest transition-colors">
+              RETOURNER À LA CONNEXION
+          </button>
+
         </form>
 
         <div class="mt-12 text-center">
@@ -89,6 +104,14 @@
             [ERREUR SYSTÈME]: {{ error }}
           </div>
         </Transition>
+
+        <!-- Success Message -->
+        <Transition name="slide-up">
+          <div v-if="successMessage" class="fixed bottom-10 left-1/2 -translate-x-1/2 w-80 p-5 bg-green-500 text-white rounded-3xl text-[10px] font-black uppercase tracking-[0.2em] text-center shadow-2xl border-t-4 border-green-700 z-[99]">
+            [ALERTE]: {{ successMessage }}
+          </div>
+        </Transition>
+
       </div>
     </div>
   </div>
@@ -106,6 +129,8 @@ const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const error = ref(null)
+const successMessage = ref(null)
+const isResetMode = ref(false)
 
 // Binary Rain Physics
 const getBinaryStyle = (n) => {
@@ -132,6 +157,23 @@ const getBeamStyle = (n) => {
 const handleLogin = async () => {
   loading.value = true
   error.value = null
+  successMessage.value = null
+
+  if (isResetMode.value) {
+      try {
+          const response = await auth.forgotPassword(email.value);
+          successMessage.value = 'CODE ENVOYÉ ! VÉRIFIEZ VOTRE BOÎTE MAIL.';
+          isResetMode.value = false;
+      } catch (err) {
+          error.value = 'EMAIL NON RECONNU DANS LA MATRICE';
+      } finally {
+          loading.value = false;
+          if (successMessage.value) setTimeout(() => successMessage.value = null, 6000);
+          if (error.value) setTimeout(() => error.value = null, 4000);
+      }
+      return;
+  }
+
   try {
     const success = await auth.login(email.value, password.value)
     if (success) {

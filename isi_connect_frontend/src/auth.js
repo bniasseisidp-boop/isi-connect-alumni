@@ -56,6 +56,10 @@ async function register(name, email, promotion_year, password, password_confirma
   return await login(email, password);
 }
 
+async function forgotPassword(email) {
+  return await apiClient.post('/forgot-password', { email });
+}
+
 async function logout() {
   try {
     await apiClient.post('/logout');
@@ -101,6 +105,7 @@ export function useAuth() {
     logout,
     fetchUser,
     setUser,
-    updateMustChangePassword
+    updateMustChangePassword,
+    forgotPassword
   };
 }
