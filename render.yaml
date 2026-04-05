@@ -15,7 +15,7 @@ services:
         value: base64:wepk8jPh9p5jYgVh2G191De7H4qpm+pWLPxL/AW7+Do=
       - key: DB_CONNECTION
         value: pgsql
-      - key: DATABASE_URL
+      - key: DB_URL
         fromDatabase:
           name: isi-connect-db
           property: connectionString
