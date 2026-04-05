@@ -118,12 +118,13 @@ watch(() => messengerState.activeChat, (newVal) => {
     <!-- Chat Window Matrix -->
     <transition
       enter-active-class="transition duration-500 ease-out"
-      enter-from-class="translate-y-20 opacity-0 scale-95 blur-xl"
-      enter-to-class="translate-y-0 opacity-100 scale-100 blur-0"
+      enter-from-class="translate-x-full opacity-0 scale-95 blur-xl"
+      enter-to-class="translate-x-0 opacity-100 scale-100 blur-0"
       leave-active-class="transition duration-300 ease-in"
-      leave-from-class="translate-y-0 opacity-100 scale-100 blur-0"
-      leave-to-class="translate-y-20 opacity-0 scale-90 blur-xl"
+      leave-from-class="translate-x-0 opacity-100 scale-100 blur-0"
+      leave-to-class="translate-x-full opacity-0 scale-90 blur-xl"
     >
+
       <div v-if="messengerState.isOpen" class="w-[calc(100vw-32px)] sm:w-[380px] md:w-[410px] h-[75vh] md:h-[580px] bg-white rounded-3xl md:rounded-[2.5rem] shadow-[0_50px_100px_rgba(0,0,0,0.2)] border-2 border-slate-50 flex overflow-hidden relative transition-all">
 
 

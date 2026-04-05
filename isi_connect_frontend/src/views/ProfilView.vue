@@ -26,8 +26,14 @@ const form = ref({
 })
 
 const isLoading = ref(false)
+const isPasswordLoading = ref(false)
 const successMessage = ref(null)
 const errorMessage = ref(null)
+const passwordForm = ref({
+    password: '',
+    password_confirmation: ''
+})
+
 
 const selectedFile = ref(null)
 const previewUrl = ref(null)
@@ -92,6 +98,30 @@ const handleUpdateProfile = async () => {
     isLoading.value = false
   }
 }
+
+const handleUpdatePassword = async () => {
+    isPasswordLoading.value = true
+    successMessage.value = null
+    errorMessage.value = null
+
+    try {
+        const response = await apiClient.post('/user/update-password', passwordForm.value);
+        successMessage.value = response.data.message || 'MOT DE PASSE MIS À JOUR.';
+        passwordForm.value.password = '';
+        passwordForm.value.password_confirmation = '';
+        setTimeout(() => successMessage.value = null, 5000);
+    } catch (error) {
+        console.error("ALERTE SÉCURITÉ:", error)
+        if (error.response && error.response.data) {
+            errorMessage.value = error.response.data.message || 'ÉCHEC DE LA MISE À JOUR SÉCURISÉE.';
+        } else {
+            errorMessage.value = 'ÉCHEC DE LA MISE À JOUR SÉCURISÉE.'
+        }
+    } finally {
+        isPasswordLoading.value = false
+    }
+}
+
 </script>
 
 <template>
@@ -264,6 +294,49 @@ const handleUpdateProfile = async () => {
         </button>
       </section>
     </form>
+
+    <!-- Security Matrix (Password Change) -->
+    <div class="wow-card rounded-3xl md:rounded-[4rem] p-6 md:p-14 bg-white border-2 border-slate-50 space-y-10 shadow-xl shadow-slate-200/50 mb-20">
+        <div class="flex items-center space-x-4">
+            <div class="h-12 w-12 bg-red-500 rounded-2xl flex items-center justify-center text-white shadow-lg animate-pulse">
+                <IdentificationIcon class="h-6 w-6" />
+            </div>
+            <div>
+                <h2 class="text-3xl font-black text-slate-900 tracking-tighter uppercase">Sécurité et Accès</h2>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">MAINTENEZ VOTRE MATRICE DE CONNEXION À JOUR</p>
+            </div>
+        </div>
+
+        <form @submit.prevent="handleUpdatePassword" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+            <div class="group/input">
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-2 group-focus-within/input:text-red-500 transition-colors">Nouveau Mot de Passe</label>
+                <div class="relative">
+                    <input type="password" v-model="passwordForm.password" class="hub-input w-full rounded-[1.5rem] bg-slate-50 border-2 border-slate-100 p-6 pl-14 text-sm font-black transition-all focus:border-red-500 focus:bg-white outline-none shadow-inner" placeholder="••••••••" />
+                    <IdentificationIcon class="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300 group-focus-within/input:text-red-500 transition-colors" />
+                </div>
+            </div>
+
+            <div class="group/input">
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-2 group-focus-within/input:text-red-500 transition-colors">Confirmation de la Matrice</label>
+                <div class="relative">
+                    <input type="password" v-model="passwordForm.password_confirmation" class="hub-input w-full rounded-[1.5rem] bg-slate-50 border-2 border-slate-100 p-6 pl-14 text-sm font-black transition-all focus:border-red-500 focus:bg-white outline-none shadow-inner" placeholder="••••••••" />
+                    <IdentificationIcon class="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300 group-focus-within/input:text-red-500 transition-colors" />
+                </div>
+            </div>
+
+            <div class="md:col-span-2">
+                <button 
+                    type="submit" 
+                    :disabled="isPasswordLoading"
+                    class="w-full flex items-center justify-center rounded-[2rem] bg-slate-900 px-8 py-6 text-white shadow-xl hover:bg-red-600 transition-all active:scale-95 disabled:opacity-50"
+                >
+                    <div v-if="isPasswordLoading" class="h-5 w-5 border-2 border-white/20 border-t-white rounded-full animate-spin mr-3"></div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em]">{{ isPasswordLoading ? 'MISE À JOUR...' : 'SYNCHRONISER LE NOUVEAU MOT DE PASSE' }}</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
 
   </div>
 </template>
