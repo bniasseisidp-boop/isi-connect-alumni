@@ -75,9 +75,16 @@ const handleSubmitJob = async () => {
     selectedFile.value = null
     fetchJobs()
     newJobForm.value = { title: '', company_name: '', location: '', type: 'CDI', description: '', apply_url: '' }
+    // Reset file input physically
+    const fileInput = document.getElementById('job_image')
+    if (fileInput) fileInput.value = ''
   } catch (error) {
     console.error("ERREUR PUBLICATION:", error)
-    errorMessage.value = "PROTOCOLE DE PUBLICATION ÉCHOUÉ."
+    if (error.response?.data?.errors) {
+      errorMessage.value = Object.values(error.response.data.errors).flat().join(' | ')
+    } else {
+      errorMessage.value = error.response?.data?.message || "PROTOCOLE DE PUBLICATION ÉCHOUÉ."
+    }
   } finally {
     isLoading.value = false
   }

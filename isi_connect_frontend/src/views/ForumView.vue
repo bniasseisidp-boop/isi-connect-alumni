@@ -73,9 +73,16 @@ const handleSubmitThread = async () => {
     selectedFile.value = null
     fetchThreads()
     newThreadForm.value = { title: '', body: '' }
+    // Reset file input physically
+    const fileInput = document.getElementById('forum_image')
+    if (fileInput) fileInput.value = ''
   } catch (error) {
     console.error("ERREUR PUBLICATION FORUM:", error)
-    errorMessage.value = "ÉCHEC DU DÉPLOIEMENT DU SUJET."
+    if (error.response?.data?.errors) {
+      errorMessage.value = Object.values(error.response.data.errors).flat().join(' | ')
+    } else {
+      errorMessage.value = error.response?.data?.message || "ÉCHEC DU DÉPLOIEMENT DU SUJET."
+    }
   } finally {
     isLoading.value = false
   }

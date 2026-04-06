@@ -80,9 +80,16 @@ const handleCreateGroup = async () => {
     newGroupForm.value = { name: '', description: '', image: null }
     previewUrl.value = null
     fetchGroups()
+    // Reset file input physically
+    const fileInput = document.getElementById('group_img')
+    if (fileInput) fileInput.value = ''
   } catch (error) {
     console.error("ERREUR CRÉATION GROUPE:", error)
-    errorMessage.value = "ÉCHEC DU DÉPLOIEMENT : VÉRIFIEZ VOS DONNÉES."
+    if (error.response?.data?.errors) {
+      errorMessage.value = Object.values(error.response.data.errors).flat().join(' | ')
+    } else {
+      errorMessage.value = error.response?.data?.message || "ÉCHEC DU DÉPLOIEMENT : VÉRIFIEZ VOS DONNÉES."
+    }
   } finally {
     isSubmitting.value = false
   }
