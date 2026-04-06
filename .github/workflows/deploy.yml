@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: isi_connect_frontend/dist/
-          server-dir: ${{ secrets.FTP_FRONTEND_PATH }}
+          server-dir: /public_html/alumni/
           exclude: |
             **/.git*
             **/.git*/**
@@ -63,14 +63,14 @@ jobs:
         working-directory: isi_connect_api
         run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-      - name: Deploiement FTP vers api-alumni.isisuptech.com
+      - name: Deploiement FTP vers apialumni.isisuptech.com
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: isi_connect_api/
-          server-dir: ${{ secrets.FTP_API_PATH }}
+          server-dir: /public_html/apialumni/
           exclude: |
             **/.git*
             **/.git*/**
