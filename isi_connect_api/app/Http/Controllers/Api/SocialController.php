@@ -15,12 +15,18 @@ class SocialController extends Controller
     /**
      * Get the social timeline.
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::with(['user:id,name', 'user.profile:user_id,profile_picture_url', 'comments.user:id,name', 'comments.user.profile:user_id,profile_picture_url'])
                      ->withCount('likes')
                      ->latest()
                      ->paginate(15);
+
+        // Add 'is_liked' attribute for the authenticated user
+        $posts->getCollection()->transform(function ($post) use ($request) {
+            $post->is_liked = $post->likes()->where('user_id', $request->user()->id)->exists();
+            return $post;
+        });
 
         return response()->json($posts, 200);
     }

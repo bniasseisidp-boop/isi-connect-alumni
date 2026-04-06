@@ -12,7 +12,13 @@ class Conversation extends Model
     protected $fillable = [
         'user_one_id',
         'user_two_id',
+        'work_group_id',
     ];
+
+    public function workGroup()
+    {
+        return $this->belongsTo(WorkGroup::class);
+    }
 
     public function userOne()
     {

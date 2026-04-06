@@ -105,7 +105,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // --- Messagerie / Chat ---
     Route::get('/messenger', [MessengerController::class, 'index']);
     Route::get('/messenger/{user}', [MessengerController::class, 'show']);
-    Route::post('/messenger/{user}', [MessengerController::class, 'store']); // Envoyer un message
+    Route::post('/messenger/{user}', [MessengerController::class, 'store']); 
+    Route::get('/messenger/group/{workGroup}', [MessengerController::class, 'showGroup']);
+    Route::post('/messenger/group/{workGroup}', [MessengerController::class, 'storeGroup']);
 
     // --- Groupes de Travail ---
     Route::get('/work-groups', [WorkGroupController::class, 'index']);
