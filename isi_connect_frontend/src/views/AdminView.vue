@@ -236,8 +236,8 @@
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="job in moderatedJobs" :key="job.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
                   <div class="min-w-0">
-                    <p class="font-black text-sm truncate">{{ job.title }}</p>
-                    <p class="text-[10px] text-slate-500 truncate">{{ job.company_name }}</p>
+                    <p class="font-black text-sm">{{ job.title }}</p>
+                    <p class="text-[10px] text-slate-500">{{ job.company_name }}</p>
                   </div>
                   <button @click="deleteItem('jobs', job.id)" class="p-2.5 rounded-xl bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all">🗑️</button>
                </div>
@@ -252,8 +252,8 @@
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="t in moderatedThreads" :key="t.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
                   <div class="min-w-0">
-                    <p class="font-black text-sm truncate">{{ t.title }}</p>
-                    <p class="text-[10px] text-slate-500 truncate">Par {{ t.user?.name || 'Inconnu' }}</p>
+                    <p class="font-black text-sm">{{ t.title }}</p>
+                    <p class="text-[10px] text-slate-500">Par {{ t.user?.name || 'Inconnu' }}</p>
                   </div>
                   <button @click="deleteItem('forum-threads', t.id)" class="p-2.5 rounded-xl bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all">🗑️</button>
                </div>
@@ -267,8 +267,8 @@
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="e in moderatedEvents" :key="e.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
                   <div class="min-w-0">
-                    <p class="font-black text-sm truncate">{{ e.title }}</p>
-                    <p class="text-[10px] text-slate-500 truncate">{{ e.event_date }}</p>
+                    <p class="font-black text-sm">{{ e.title }}</p>
+                    <p class="text-[10px] text-slate-500">{{ e.event_date }}</p>
                   </div>
                   <button @click="deleteItem('events', e.id)" class="p-2.5 rounded-xl bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all">🗑️</button>
                </div>
@@ -282,8 +282,8 @@
             <div class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                <div v-for="p in moderatedPosts" :key="p.id" class="p-4 rounded-2xl bg-white/2 border border-white/5 flex justify-between items-center group">
                   <div class="min-w-0 flex-1">
-                    <p class="text-sm italic truncate">"{{ p.content }}"</p>
-                    <p class="text-[10px] text-slate-500 truncate">Par {{ p.user?.name || 'Inconnu' }}</p>
+                    <p class="text-sm italic">"{{ p.body || p.content }}"</p>
+                    <p class="text-[10px] text-slate-500">Par {{ p.user?.name || 'Inconnu' }}</p>
                   </div>
                   <button @click="deleteItem('posts', p.id)" class="p-2.5 rounded-xl bg-red-500/10 text-red-500 opacity-0 group-hover:opacity-100 transition-all">🗑️</button>
                </div>

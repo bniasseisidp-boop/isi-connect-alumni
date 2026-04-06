@@ -70,6 +70,18 @@
           <p class="text-[8px] text-sky-600 font-bold truncate tracking-[0.2em] uppercase mt-0.5">SESSION ACTIVE</p>
         </div>
       </div>
+
+      <!-- Theme Switcher Matrix -->
+      <button 
+        @click="toggleTheme" 
+        class="flex items-center justify-between w-full mb-4 px-5 py-4 rounded-2xl bg-slate-900 text-white hover:bg-sky-500 transition-all duration-500 shadow-xl border border-white/5 group/theme"
+      >
+        <span class="text-[9px] font-black uppercase tracking-widest">{{ theme === 'light' ? 'Mode Cyber' : 'Mode Classique' }}</span>
+        <div class="h-6 w-6 rounded-lg bg-white/10 flex items-center justify-center group-hover/theme:rotate-12 transition-transform">
+           <SunIcon v-if="theme === 'dark'" class="h-4 w-4" />
+           <MoonIcon v-else class="h-4 w-4" />
+        </div>
+      </button>
       
       <button 
         @click="handleLogout" 
@@ -95,10 +107,11 @@ import {
   CalendarIcon, 
   ChatBubbleLeftRightIcon, 
   UserCircleIcon,
-  ArrowRightOnRectangleIcon,
-  SparklesIcon,
-  UserGroupIcon
+  UserGroupIcon,
+  SunIcon,
+  MoonIcon
 } from '@heroicons/vue/24/outline'
+import { theme, toggleTheme } from '../theme'
 
 const auth = useAuth()
 
