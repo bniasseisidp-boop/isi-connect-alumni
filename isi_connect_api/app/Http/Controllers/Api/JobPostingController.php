@@ -81,7 +81,7 @@ class JobPostingController extends Controller
     public function show(JobPosting $jobPosting)
     {
         // On charge l'offre avec les détails de l'auteur
-        return response()->json($jobPosting->load('user:id,name,profile_picture_url'), 200);
+        return response()->json($jobPosting->load('user.profile'), 200);
     }
 
     /**
