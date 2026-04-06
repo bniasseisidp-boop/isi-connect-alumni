@@ -1,0 +1,114 @@
+﻿git : remote: error: 
+GH013: Repository rule 
+violations found for 
+refs/heads/master.        
+Au caractère Ligne:1 : 1
++ git push origin master 
+2>&1 | tee push_result.txt
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo        
+      : NotSpecified: (r  
+  emote: error: ...mast   
+ er.        :String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+remote: 
+remote: - GITHUB PUSH 
+PROTECTION        
+remote:   ÔÇöÔÇöÔÇöÔÇöÔÇöÔ
+ÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇö
+ÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇ
+öÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔ
+ÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇö
+ÔÇö        
+remote:     Resolve the 
+following violations 
+before pushing again      
+  
+remote: 
+remote:     - Push cannot 
+contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn 
+how to resolve a blocked 
+push        
+remote:      https://docs.
+github.com/code-security/s
+ecret-scanning/working-wit
+h-secret-scanning-and-push
+-protection/working-with-p
+ush-protection-from-the-co
+mmand-line#resolving-a-blo
+cked-push        
+remote:             
+remote:             
+remote:       ÔÇöÔÇö 
+Sendinblue SMTP Key ÔÇöÔÇö
+ÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇ
+öÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔ
+ÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇöÔÇö
+ÔÇöÔÇöÔÇö        
+remote:        locations: 
+       
+remote:          - 
+commit: d4bf22008c8d480909
+efd46695bda9242c5ce55b    
+    
+remote:            path: 
+render.yaml:37        
+remote:          - 
+commit: ec9f9a16d3bb8aa564
+c8c3dec84d65765625811c    
+    
+remote:            path: 
+render.yaml:37        
+remote:          - 
+commit: 523665ae29bcbeb2c2
+3f247cf5a75e0d54a0a730    
+    
+remote:            path: 
+render.yaml:37        
+remote:          - 
+commit: bb64beb3e2f9656a28
+5e4da905fa246bb29e3bea    
+    
+remote:            path: 
+render.yaml:39        
+remote:          - 
+commit: 9deaf7a90e975effc5
+0729d870f5ed885c19daff    
+    
+remote:            path: 
+render.yaml:39        
+remote:             
+remote:        (?) To 
+push, remove secret from 
+commit(s) or follow this 
+URL to allow the secret.  
+      
+remote:        https://git
+hub.com/bniasseisidp-boop/
+isi-connect-alumni/securit
+y/secret-scanning/unblock-
+secret/3BwlzI4rSWu3ice9xgZ
+9tzAE0Hm        
+remote:             
+remote: 
+remote: 
+To https://github.com/bnia
+sseisidp-boop/isi-connect-
+alumni.git
+ ! [remote rejected] 
+master -> master (push 
+declined due to 
+repository rule 
+violations)
+error: failed to push 
+some refs to 'https://gith
+ub.com/bniasseisidp-boop/i
+si-connect-alumni.git'
