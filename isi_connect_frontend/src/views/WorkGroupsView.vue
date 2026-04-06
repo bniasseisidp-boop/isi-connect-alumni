@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import apiClient, { STORAGE_URL } from '../api'
 import { useAuth } from '../auth'
+import { openChatWith } from '../messenger'
 import { 
   UserGroupIcon, 
   PlusIcon, 
@@ -9,7 +10,8 @@ import {
   ChatBubbleBottomCenterTextIcon,
   TrashIcon,
   ShieldCheckIcon,
-  CloudArrowUpIcon
+  CloudArrowUpIcon,
+  ChatBubbleLeftRightIcon
 } from '@heroicons/vue/24/outline'
 
 const auth = useAuth()
@@ -163,6 +165,15 @@ const addMember = async (userId) => {
   }
 }
 
+const openChat = (group) => {
+  openChatWith({ 
+    id: group.id, 
+    name: group.name, 
+    image_path: group.image_path,
+    work_group_id: group.id 
+  })
+}
+
 onMounted(fetchGroups)
 </script>
 
@@ -272,9 +283,18 @@ onMounted(fetchGroups)
               </button>
 
               <button 
+                v-if="isMember(group)"
+                @click="openChat(group.id)"
+                class="p-4 rounded-2xl bg-sky-500 text-white hover:bg-sky-600 transition-all shadow-lg shadow-sky-500/20 active:scale-95"
+                title="OUVRIR LE CHAT DE GROUPE"
+              >
+                <ChatBubbleLeftRightIcon class="h-5 w-5" />
+              </button>
+
+              <button 
                 v-if="isCreator(group)"
                 @click="openMemberModal(group)"
-                class="flex items-center space-x-2 px-6 py-4 rounded-2xl bg-sky-500 text-white font-black text-[9px] uppercase tracking-widest hover:bg-sky-600 transition-all shadow-lg shadow-sky-500/20 active:scale-95"
+                class="flex items-center space-x-2 px-6 py-4 rounded-2xl bg-slate-900 text-white font-black text-[9px] uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg active:scale-95"
               >
                 <PlusIcon class="h-4 w-4" />
                 <span>+ MEMBRE</span>
