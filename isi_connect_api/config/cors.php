@@ -21,6 +21,8 @@ return [
 
     'allowed_origins' => [
         'http://localhost:5173',
+        'https://alumni.isisuptech.com',
+        'https://apialumni.isisuptech.com',
         'https://isi-connect-alumni.onrender.com',
         'https://isi-connect-api.onrender.com',
         'https://alumni.multibrain.cloud',
@@ -34,6 +36,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => true,
+    'supports_credentials' => false,
 
 ];
