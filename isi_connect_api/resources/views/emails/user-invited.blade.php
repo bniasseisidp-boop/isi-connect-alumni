@@ -30,7 +30,7 @@
             <p><strong>Important :</strong> Lors de votre première connexion, il vous sera demandé de modifier ce mot de passe par mesure de sécurité.</p>
             
             <p style="text-align: center;">
-                <a href="http://localhost:5173/login" class="btn">Se connecter maintenant</a>
+                <a href="https://alumni.multibrain.cloud/login" class="btn">Se connecter maintenant</a>
             </p>
 
             <p>À bientôt sur la plateforme !</p>

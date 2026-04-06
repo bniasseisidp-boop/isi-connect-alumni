@@ -31,7 +31,7 @@
             <p><strong>ALERTE SÉCURITÉ :</strong> Cet accès est temporaire. Dès votre connexion, le système vous demandera obligatoirement de définir une nouvelle clef d'accès personnelle.</p>
             
             <p style="text-align: center;">
-                <a href="http://localhost:5173/login" class="btn">RÉACTIVER MON COMPTE</a>
+                <a href="https://alumni.multibrain.cloud/login" class="btn">RÉACTIVER MON COMPTE</a>
             </p>
 
             <p>Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet email.</p>
