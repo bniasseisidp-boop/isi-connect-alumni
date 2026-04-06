@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordReset;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -131,12 +132,36 @@ class AuthController extends Controller
         $user->must_change_password = true;
         $user->save();
 
-        // Envoi de l'email
+        // Envoi de l'email via API Brevo (plus fiable que SMTP sur VPS)
         try {
-            Mail::to($user->email)->send(new PasswordReset($user->name, $user->email, $tempPassword));
+            $htmlContent = view('emails.password-reset', [
+                'name' => $user->name, 
+                'email' => $user->email, 
+                'password' => $tempPassword
+            ])->render();
+
+            $response = Http::withHeaders([
+                'api-key' => env('BREVO_API_KEY'),
+                'accept' => 'application/json',
+                'content-type' => 'application/json',
+            ])->post('https://api.brevo.com/v3/smtp/email', [
+                'sender' => [
+                    'name' => env('MAIL_FROM_NAME', 'ISI Suptech Alumni'),
+                    'email' => env('MAIL_FROM_ADDRESS')
+                ],
+                'to' => [
+                    ['email' => $user->email, 'name' => $user->name]
+                ],
+                'subject' => 'Récupération de votre compte ISI Connect',
+                'htmlContent' => $htmlContent
+            ]);
+
+            if (!$response->successful()) {
+                throw new \Exception('Brevo API error: ' . $response->body());
+            }
+
         } catch (\Exception $e) {
-            // Si l'email échoue, on remet l'ancien état (ou on log juste l'erreur)
-            \Illuminate\Support\Facades\Log::error('Mail sending failed: ' . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error('Mail sending failed via API: ' . $e->getMessage());
             return response()->json([
                 'message' => 'Compte mis à jour mais l\'email n\'a pas pu être envoyé. Contactez l\'administrateur.',
                 'error' => 'mail_failed'
