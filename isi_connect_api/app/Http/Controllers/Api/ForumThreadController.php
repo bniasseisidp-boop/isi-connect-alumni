@@ -46,6 +46,10 @@ class ForumThreadController extends Controller
         ];
         
         if ($request->hasFile('image')) {
+            // S'assurer que le dossier existe
+            if (!Storage::disk('public')->exists('forum')) {
+                Storage::disk('public')->makeDirectory('forum');
+            }
             $path = $request->file('image')->store('forum', 'public');
             $threadData['image_path'] = $path;
         }

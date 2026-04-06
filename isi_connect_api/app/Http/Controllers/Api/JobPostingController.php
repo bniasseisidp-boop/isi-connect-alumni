@@ -60,6 +60,10 @@ class JobPostingController extends Controller
         ];
         
         if ($request->hasFile('image')) {
+            // S'assurer que le dossier existe
+            if (!Storage::disk('public')->exists('jobs')) {
+                Storage::disk('public')->makeDirectory('jobs');
+            }
             $path = $request->file('image')->store('jobs', 'public');
             $jobData['image_path'] = $path;
         }

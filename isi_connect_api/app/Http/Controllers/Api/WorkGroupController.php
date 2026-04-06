@@ -46,6 +46,10 @@ class WorkGroupController extends Controller
         ];
 
         if ($request->hasFile('image')) {
+            // S'assurer que le dossier existe
+            if (!Storage::disk('public')->exists('groups')) {
+                Storage::disk('public')->makeDirectory('groups');
+            }
             $path = $request->file('image')->store('groups', 'public');
             $groupData['image_path'] = $path;
         }
