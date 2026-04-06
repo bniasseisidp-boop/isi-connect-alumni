@@ -71,17 +71,29 @@
         </div>
       </div>
 
-      <!-- Theme Switcher Matrix -->
-      <button 
-        @click="toggleTheme" 
-        class="flex items-center justify-between w-full mb-4 px-5 py-4 rounded-2xl bg-slate-900 text-white hover:bg-sky-500 transition-all duration-500 shadow-xl border border-white/5 group/theme"
-      >
-        <span class="text-[9px] font-black uppercase tracking-widest">{{ theme === 'light' ? 'Mode Cyber' : 'Mode Classique' }}</span>
-        <div class="h-6 w-6 rounded-lg bg-white/10 flex items-center justify-center group-hover/theme:rotate-12 transition-transform">
-           <SunIcon v-if="theme === 'dark'" class="h-4 w-4" />
-           <MoonIcon v-else class="h-4 w-4" />
+      <!-- Premium Theme Matrix Switch -->
+      <div class="px-3 mb-6">
+        <div 
+          @click="toggleTheme"
+          class="relative h-14 w-full rounded-2xl p-1 cursor-pointer transition-all duration-700 overflow-hidden group/switch"
+          :class="theme === 'light' ? 'bg-slate-100 border border-slate-200' : 'bg-slate-900 border border-white/10 shadow-[0_0_20px_rgba(14,165,233,0.15)]'"
+        >
+          <!-- Sliding indicator -->
+          <div 
+            class="absolute top-1 bottom-1 w-[calc(50%-4px)] rounded-xl transition-all duration-500 ease-out flex items-center justify-center shadow-lg"
+            :class="theme === 'light' ? 'left-1 bg-white text-sky-500' : 'left-[calc(50%+1px)] bg-sky-500 text-white shadow-[0_0_15px_rgba(14,165,233,0.5)]'"
+          >
+            <SunIcon v-if="theme === 'light'" class="h-5 w-5 animate-spin-slow" />
+            <MoonIcon v-else class="h-5 w-5 animate-pulse" />
+          </div>
+
+          <!-- Labels -->
+          <div class="relative h-full w-full flex items-center justify-around z-10 pointer-events-none">
+            <span class="text-[8px] font-black tracking-widest transition-opacity duration-300" :class="theme === 'light' ? 'opacity-0' : 'opacity-40 text-white'">LIGHT</span>
+            <span class="text-[8px] font-black tracking-widest transition-opacity duration-300" :class="theme === 'dark' ? 'opacity-0' : 'opacity-40 text-slate-400'">CYBER</span>
+          </div>
         </div>
-      </button>
+      </div>
       
       <button 
         @click="handleLogout" 

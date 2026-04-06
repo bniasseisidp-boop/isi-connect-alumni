@@ -99,9 +99,13 @@ const startRecording = async () => {
     }
 
     mediaRecorder.value.onstop = async () => {
-      const audioBlob = new Blob(audioChunks.value, { type: 'audio/webm' })
+      // Check for better compatibility mime types
+      const mimeType = mediaRecorder.value.mimeType || 'audio/webm'
+      const extension = mimeType.includes('mp4') ? 'mp4' : (mimeType.includes('mpeg') ? 'mp3' : 'webm')
+      
+      const audioBlob = new Blob(audioChunks.value, { type: mimeType })
       const formData = new FormData()
-      formData.append('file', audioBlob, 'voice.webm')
+      formData.append('file', audioBlob, `voice.${extension}`)
       formData.append('type', 'voice')
       sendMessage(formData)
     }
@@ -297,7 +301,7 @@ watch(() => messengerState.activeChat, (newVal) => {
                     <p v-if="msg.type === 'text'">{{ msg.body }}</p>
                     <img v-else-if="msg.type === 'image'" :src="msg.file_url" class="rounded-xl max-w-full hover:scale-[1.02] transition-transform" />
                     <video v-else-if="msg.type === 'video'" :src="msg.file_url" controls class="rounded-xl max-w-full"></video>
-                    <audio v-else-if="msg.type === 'voice'" :src="msg.file_url" controls class="w-full h-10 filter invert dark:invert-0"></audio>
+                    <audio v-else-if="msg.type === 'voice'" :src="msg.file_url" controls class="w-full max-w-[200px] h-8 md:h-10 opacity-90 hover:opacity-100 transition-opacity"></audio>
                   </div>
                 </div>
               </div>
