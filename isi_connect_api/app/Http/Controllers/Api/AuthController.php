@@ -163,7 +163,7 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Mail sending failed via API: ' . $e->getMessage());
             return response()->json([
-                'message' => 'Compte mis à jour mais l\'email n\'a pas pu être envoyé. Contactez l\'administrateur.',
+                'message' => 'L\'email n\'a pas pu être envoyé. Détail technique : ' . $e->getMessage(),
                 'error' => 'mail_failed'
             ], 500);
         }
