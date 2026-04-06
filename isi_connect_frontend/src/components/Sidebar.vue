@@ -109,7 +109,9 @@ import {
   UserCircleIcon,
   UserGroupIcon,
   SunIcon,
-  MoonIcon
+  MoonIcon,
+  SparklesIcon,
+  ArrowRightOnRectangleIcon
 } from '@heroicons/vue/24/outline'
 import { theme, toggleTheme } from '../theme'
 
