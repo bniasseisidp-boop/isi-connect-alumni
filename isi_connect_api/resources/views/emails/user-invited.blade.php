@@ -30,13 +30,14 @@
             <p><strong>Important :</strong> Lors de votre première connexion, il vous sera demandé de modifier ce mot de passe par mesure de sécurité.</p>
             
             <p style="text-align: center;">
-                <a href="https://alumni.multibrain.cloud/login" class="btn">Se connecter maintenant</a>
+                <a href="https://alumni.isisuptech.com/login" class="btn">Se connecter maintenant</a>
             </p>
 
             <p>À bientôt sur la plateforme !</p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} ISI Suptech Connect. Tous droits réservés.</p>
+            <p>&copy; {{ date('Y') }} ISI Suptech Alumni. Tous droits réservés.</p>
+            <p style="font-size: 10px; color: #bbb;">Plateforme développée par <strong>Multibrain Tech</strong></p>
         </div>
     </div>
 </body>

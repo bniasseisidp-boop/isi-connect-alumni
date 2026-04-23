@@ -5,10 +5,48 @@
 
 :root {
   font-family: 'Outfit', sans-serif;
+  --accent: #0ea5e9;
+  --accent-deep: #0284c7;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --sidebar-bg: #0f172a;
   --sky-blue: #0ea5e9;
   --sky-blue-deep: #0284c7;
   --bg-white: #ffffff;
 }
+
+/* Theme: Dark Blue */
+html.theme-dark-blue {
+  --accent: #38bdf8;
+  --accent-deep: #0ea5e9;
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --card-bg: #1e293b;
+  --card-border: rgba(255,255,255,0.06);
+  --sidebar-bg: #020617;
+}
+
+/* Theme: Dark Purple */
+html.theme-dark-purple {
+  --accent: #a78bfa;
+  --accent-deep: #7c3aed;
+  --bg-primary: #0d0d1a;
+  --bg-secondary: #13131f;
+  --text-primary: #ede9fe;
+  --text-secondary: #a78bfa;
+  --card-bg: #13131f;
+  --card-border: rgba(167,139,250,0.12);
+  --sidebar-bg: #07070f;
+}
+
+/* Theme transition */
+html { transition: background-color 0.4s ease, color 0.4s ease; }
 
 html {
   scroll-behavior: smooth;
@@ -16,17 +54,24 @@ html {
 }
 
 body {
-  background-color: var(--bg-white);
-  /* Motif de Grille Numérique (Digital Grid) */
-  background-image: 
-    linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-color: var(--bg-primary);
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
   background-size: 30px 30px;
-  color: #1e293b;
+  color: var(--text-primary);
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+html.theme-dark-purple body {
+  background-image:
+    linear-gradient(rgba(167,139,250,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167,139,250,0.04) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 /* Custom Scrollbar Premium - Plus visible */
@@ -128,52 +173,93 @@ body {
 }
 
 
-/* --- THÈME DARK / CYBER (Admin Style) --- */
+/* --- THÈME DARK (uses CSS variables, applies to both dark-blue & dark-purple) --- */
 
 html.dark {
-  background-color: #0a0f1e;
   color-scheme: dark;
+  background-color: var(--bg-primary);
 }
 
 html.dark body {
-  background-color: #0a0f1e;
-  color: #f8fafc;
-  background-image: 
-    linear-gradient(rgba(14, 165, 233, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.1) 1px, transparent 1px);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 5%, transparent) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 html.dark .wow-card {
-  background: rgba(15, 23, 42, 0.8) !important;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: var(--card-bg) !important;
+  border-color: var(--card-border) !important;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
 }
 
 html.dark .bg-white {
-  background-color: #0c1222 !important;
+  background-color: var(--card-bg) !important;
 }
 
-html.dark .text-slate-900, 
-html.dark .text-slate-800, 
+html.dark .text-slate-900,
+html.dark .text-slate-800,
 html.dark .text-slate-700 {
-  color: #f1f5f9 !important;
+  color: var(--text-primary) !important;
 }
 
-html.dark .bg-slate-50, 
+html.dark .text-slate-600,
+html.dark .text-slate-500,
+html.dark .text-slate-400 {
+  color: var(--text-secondary) !important;
+}
+
+html.dark .bg-slate-50,
 html.dark .bg-slate-100 {
-  background-color: #1a1f35 !important;
+  background-color: var(--bg-secondary) !important;
 }
 
-html.dark input, 
-html.dark textarea, 
+html.dark .border-slate-50,
+html.dark .border-slate-100,
+html.dark .border-slate-200 {
+  border-color: var(--card-border) !important;
+}
+
+html.dark input,
+html.dark textarea,
 html.dark select {
-  background-color: #1a1f35 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  color: white !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--card-border) !important;
+  color: var(--text-primary) !important;
 }
 
-html.dark .border-slate-50, 
-html.dark .border-slate-100 {
-  border-color: rgba(255, 255, 255, 0.05) !important;
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.7;
 }
+
+/* Dividers */
+html.dark hr {
+  border-color: var(--card-border) !important;
+}
+
+/* Buttons with bg-slate-900 used as dark accents — keep them readable */
+html.dark .bg-slate-950 { background-color: #000510 !important; }
+
+/* Modal/overlay backgrounds */
+html.dark .bg-slate-900 {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Keep hero cards in dashboard (which intentionally use bg-slate-950) unaffected
+   by overriding only the generic slate-900 in non-hero contexts */
+html.dark [class*="shadow-slate-"] {
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35) !important;
+}
+
+/* Accent-colored text (sky-*) should adapt to theme accent */
+html.dark .text-sky-600,
+html.dark .text-sky-700 {
+  color: var(--accent) !important;
+}
+html.dark .text-sky-500 { color: var(--accent) !important; }
+html.dark .bg-sky-50 { background-color: color-mix(in srgb, var(--accent) 8%, var(--bg-secondary)) !important; }
+html.dark .border-sky-100 { border-color: color-mix(in srgb, var(--accent) 20%, transparent) !important; }

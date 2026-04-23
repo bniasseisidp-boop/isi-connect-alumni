@@ -85,8 +85,11 @@ onMounted(fetchUserProfile)
               <UserIcon v-else class="h-20 w-20 text-slate-700 group-hover/avatar:scale-110 transition-transform duration-700" />
             </div>
             <!-- Identity Pulse Badge -->
-            <div class="absolute -bottom-3 -right-3 px-6 py-2 bg-green-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full shadow-2xl border-4 border-slate-950 z-20">
+            <div v-if="user.is_online" class="absolute -bottom-3 -right-3 px-6 py-2 bg-green-500 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full shadow-2xl border-4 border-slate-950 z-20">
                ONLINE
+            </div>
+            <div v-else class="absolute -bottom-3 -right-3 px-6 py-2 bg-slate-600 text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full shadow-2xl border-4 border-slate-950 z-20">
+               OFFLINE
             </div>
           </div>
 

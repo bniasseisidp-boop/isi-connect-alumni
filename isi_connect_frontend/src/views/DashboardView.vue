@@ -166,9 +166,9 @@ const latestJobs = ref([])
 
 // Digital metrics with animated display values
 const metrics = ref([
-  { label: 'SYSTÈME : RÉSEAU ISI', value: 4890, displayValue: 0, icon: UsersIcon },
-  { label: 'CELLULE OPPORTUNITÉS', value: 112, displayValue: 0, icon: SparklesIcon },
-  { label: 'FLUX DE DISCUSSIONS', value: 54, icon: ChatBubbleLeftRightIcon, displayValue: 0 }
+  { label: 'SYSTÈME : RÉSEAU ISI', value: 0, displayValue: 0, icon: UsersIcon },
+  { label: 'CELLULE OPPORTUNITÉS', value: 0, displayValue: 0, icon: SparklesIcon },
+  { label: 'FLUX DE DISCUSSIONS', value: 0, icon: ChatBubbleLeftRightIcon, displayValue: 0 }
 ])
 
 const formatDateTime = (dateString, format) => {
@@ -203,13 +203,19 @@ const animateNumbers = () => {
 const fetchDashboardData = async () => {
   isLoading.value = true
   try {
-    const [eventsResponse, jobsResponse] = await Promise.all([
+    const [eventsResponse, jobsResponse, statsResponse] = await Promise.all([
       apiClient.get('/events').catch(() => ({ data: [] })),
-      apiClient.get('/job-postings').catch(() => ({ data: [] }))
+      apiClient.get('/job-postings').catch(() => ({ data: [] })),
+      apiClient.get('/stats').catch(() => ({ data: { users: 0, jobs: 0, threads: 0 } }))
     ]);
 
     latestEvents.value = (eventsResponse.data.data || eventsResponse.data || []).slice(0, 3);
     latestJobs.value = (jobsResponse.data.data || jobsResponse.data || []).slice(0, 3);
+
+    const stats = statsResponse.data;
+    metrics.value[0].value = stats.users   || 0;
+    metrics.value[1].value = stats.jobs    || 0;
+    metrics.value[2].value = stats.threads || 0;
   } catch (error) {
     console.error("DÉFAILLANCE HUB DATA:", error)
   } finally {

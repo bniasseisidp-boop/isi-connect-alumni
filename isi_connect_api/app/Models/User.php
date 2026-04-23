@@ -27,9 +27,15 @@ protected $fillable = [
     'name',
     'email',
     'password',
-    'promotion_year', // <-- Notre ajout
-    'role',             // <-- Notre ajout
+    'promotion_year',
+    'role',
+    'last_seen_at',
 ];
+
+public function isOnline(): bool
+{
+    return $this->last_seen_at && $this->last_seen_at->gt(now()->subMinutes(5));
+}
 
     /**
      * The attributes that should be hidden for serialization.
@@ -120,10 +126,18 @@ public function createdGroups()
      *
      * @return array<string, string>
      */
+    protected $appends = ['is_online'];
+
+    public function getIsOnlineAttribute(): bool
+    {
+        return $this->last_seen_at && \Carbon\Carbon::parse($this->last_seen_at)->gt(now()->subMinutes(5));
+    }
+
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
+            'last_seen_at' => 'datetime',
             'password' => 'hashed',
         ];
     }

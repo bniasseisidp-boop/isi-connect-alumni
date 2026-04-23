@@ -51,6 +51,7 @@ class ForumThreadController extends Controller
                 Storage::disk('public')->makeDirectory('forum');
             }
             $path = $request->file('image')->store('forum', 'public');
+            \App\Helpers\ImageHelper::compress($path);
             $threadData['image_path'] = $path;
         }
 

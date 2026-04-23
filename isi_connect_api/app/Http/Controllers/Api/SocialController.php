@@ -52,6 +52,7 @@ class SocialController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('posts', 'public');
+            \App\Helpers\ImageHelper::compress($path);
             $postData['image_path'] = $path;
         }
 

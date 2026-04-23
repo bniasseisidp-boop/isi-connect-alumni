@@ -125,7 +125,8 @@ const filteredAlumni = computed(() => {
                  <UserIcon v-else class="h-10 w-10 text-slate-700" />
               </div>
               <!-- Status Glow -->
-              <div class="absolute -bottom-2 -right-2 h-6 w-6 bg-green-500 border-4 border-white rounded-full z-20 shadow-lg"></div>
+              <div v-if="alumnus.is_online" class="absolute -bottom-2 -right-2 h-6 w-6 bg-green-500 border-4 border-white rounded-full z-20 shadow-lg"></div>
+              <div v-else class="absolute -bottom-2 -right-2 h-6 w-6 bg-slate-400 border-4 border-white rounded-full z-20"></div>
             </div>
             
             <h3 class="text-xl font-black text-slate-900 tracking-tight leading-tight">{{ alumnus.name }}</h3>

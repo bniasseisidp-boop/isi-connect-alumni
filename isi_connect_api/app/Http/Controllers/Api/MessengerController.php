@@ -160,6 +160,9 @@ class MessengerController extends Controller
 
         if ($request->hasFile('file')) {
             $path = $request->file('file')->store('messenger', 'public');
+            if (in_array($request->type, ['image'])) {
+                \App\Helpers\ImageHelper::compress($path);
+            }
             $msgData['file_path'] = $path;
         }
 

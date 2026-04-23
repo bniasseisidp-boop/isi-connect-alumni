@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\SocialController;
 use App\Http\Controllers\Api\MessengerController;
 use App\Http\Controllers\Api\WorkGroupController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\VideoCallController;
 
 
 /*
@@ -64,8 +65,17 @@ Route::get('/forum-threads/{forumThread}', [ForumThreadController::class, 'show'
 | Routes Protégées (Nécessitent un Token)
 |--------------------------------------------------------------------------
 */
+// Stats publiques du dashboard
+Route::get('/stats', function () {
+    return response()->json([
+        'users'    => \App\Models\User::count(),
+        'jobs'     => \App\Models\JobPosting::count(),
+        'threads'  => \App\Models\ForumThread::count(),
+    ]);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
-    
+
     // --- Auth & Profil ---
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
@@ -114,8 +124,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/work-groups', [WorkGroupController::class, 'store']);
     Route::post('/work-groups/{workGroup}/join', [WorkGroupController::class, 'join']);
     Route::post('/work-groups/{workGroup}/members', [WorkGroupController::class, 'addMember']);
+    Route::delete('/work-groups/{workGroup}/members/{userId}', [WorkGroupController::class, 'removeMember']);
     Route::post('/work-groups/{workGroup}/leave', [WorkGroupController::class, 'leave']);
     Route::delete('/work-groups/{workGroup}', [WorkGroupController::class, 'destroy']);
+
+    // --- Appels Vidéo WebRTC ---
+    Route::get('/video-calls/incoming', [VideoCallController::class, 'incoming']);
+    Route::post('/video-calls', [VideoCallController::class, 'initiate']);
+    Route::get('/video-calls/{roomId}', [VideoCallController::class, 'show']);
+    Route::post('/video-calls/{roomId}/answer', [VideoCallController::class, 'answer']);
+    Route::post('/video-calls/{roomId}/ice', [VideoCallController::class, 'addIce']);
+    Route::get('/video-calls/{roomId}/ice', [VideoCallController::class, 'getIce']);
+    Route::post('/video-calls/{roomId}/end', [VideoCallController::class, 'end']);
 
     // --- Administration ---
     Route::get('/admin/users', [AdminController::class, 'indexUsers']);

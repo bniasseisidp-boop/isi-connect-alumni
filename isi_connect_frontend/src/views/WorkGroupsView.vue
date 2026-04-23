@@ -291,7 +291,7 @@ onMounted(fetchGroups)
 
               <button 
                 v-if="isMember(group)"
-                @click="openChat(group.id)"
+                @click="openChat(group)"
                 class="p-4 rounded-2xl bg-sky-500 text-white hover:bg-sky-600 transition-all shadow-lg shadow-sky-500/20 active:scale-95"
                 title="OUVRIR LE CHAT DE GROUPE"
               >

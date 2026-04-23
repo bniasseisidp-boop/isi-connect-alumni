@@ -85,6 +85,7 @@ class ProfileController extends Controller
 
             // Sauvegarder la nouvelle
             $path = $request->file('image')->store('profiles', 'public');
+            \App\Helpers\ImageHelper::compress($path, 400, 400, 85);
             $profile->update(['profile_picture_url' => $path]);
         }
 

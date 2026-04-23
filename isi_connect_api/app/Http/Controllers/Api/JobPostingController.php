@@ -65,6 +65,7 @@ class JobPostingController extends Controller
                 Storage::disk('public')->makeDirectory('jobs');
             }
             $path = $request->file('image')->store('jobs', 'public');
+            \App\Helpers\ImageHelper::compress($path);
             $jobData['image_path'] = $path;
         }
 

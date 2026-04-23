@@ -3,9 +3,9 @@ import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { messengerState, toggleMessenger } from '../messenger'
 import apiClient, { STORAGE_URL } from '../api'
 import { useAuth } from '../auth'
-import { 
-  ChatBubbleLeftRightIcon, 
-  XMarkIcon, 
+import {
+  ChatBubbleLeftRightIcon,
+  XMarkIcon,
   PaperAirplaneIcon,
   UserCircleIcon,
   SparklesIcon,
@@ -16,6 +16,7 @@ import {
   StopIcon,
   UserGroupIcon
 } from '@heroicons/vue/24/outline'
+import VideoCallOverlay from './VideoCallOverlay.vue'
 
 const auth = useAuth()
 const messages = ref([])
@@ -29,9 +30,7 @@ const isRecording = ref(false)
 const mediaRecorder = ref(null)
 const audioChunks = ref([])
 
-// Iframe Call State
-const showCallModal = ref(false)
-const callUrl = ref('')
+const videoCallRef = ref(null)
 
 const fetchConversations = async () => {
   try {
@@ -141,15 +140,10 @@ const handleFileUpload = (event) => {
   sendMessage(formData)
 }
 
-// --- INTEGRATED VIDEO CALL ---
+// --- INTEGRATED VIDEO CALL (WebRTC) ---
 const startCall = () => {
-  if (!messengerState.activeChat) return
-  const myId = auth.user.value.id
-  const otherId = messengerState.activeChat.id || messengerState.activeChat.work_group_id
-  const roomName = `ISI_CONNECT_${messengerState.activeChat.work_group_id ? 'GROUP_'+otherId : 'CALL_'+Math.min(myId, otherId)+'_'+Math.max(myId, otherId)}`
-  
-  callUrl.value = `https://meet.jit.si/${roomName}#config.prejoinPageEnabled=false`
-  showCallModal.value = true
+  if (!messengerState.activeChat || !videoCallRef.value) return
+  videoCallRef.value.startCall(messengerState.activeChat)
 }
 
 const scrollToBottom = () => {
@@ -199,15 +193,8 @@ watch(() => messengerState.activeChat, (newVal) => {
 <template>
   <div class="fixed bottom-4 md:bottom-5 right-4 md:right-5 z-[200] flex flex-col items-end space-y-3">
 
-    <!-- Video Call Modal Matrix -->
-    <div v-if="showCallModal" class="fixed inset-0 z-[300] bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4 md:p-10">
-      <div class="w-full max-w-6xl h-full bg-slate-900 rounded-[2rem] md:rounded-[3rem] overflow-hidden border-4 border-sky-500/30 relative shadow-[0_0_100px_rgba(14,165,233,0.3)]">
-        <button @click="showCallModal = false" class="absolute top-6 right-6 z-10 bg-red-500 text-white p-3 rounded-2xl hover:scale-110 transition-transform">
-          <XMarkIcon class="h-6 w-6" />
-        </button>
-        <iframe :src="callUrl" allow="camera; microphone; display-capture; autoplay" class="w-full h-full border-none"></iframe>
-      </div>
-    </div>
+    <!-- Video Call WebRTC -->
+    <VideoCallOverlay ref="videoCallRef" />
 
     <!-- Chat Window Matrix -->
     <transition
@@ -236,7 +223,8 @@ watch(() => messengerState.activeChat, (newVal) => {
                        class="h-full w-full object-cover" />
                   <UserCircleIcon v-else class="h-6 w-6 text-white/20" />
               </div>
-              <div class="absolute -top-1 -right-1 h-3 w-3 bg-green-500 border-2 border-slate-950 rounded-full"></div>
+              <div class="absolute -top-1 -right-1 h-3 w-3 border-2 border-slate-950 rounded-full"
+                   :class="(conv.user_one_id === auth.user.value.id ? conv.user_two : conv.user_one)?.is_online ? 'bg-green-500' : 'bg-slate-600'"></div>
            </div>
 
            <div class="w-8 h-px bg-white/10 rounded-full"></div>

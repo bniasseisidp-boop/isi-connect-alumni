@@ -62,7 +62,7 @@
               placeholder="••••••••"
             />
             <div class="flex justify-end pr-4">
-              <button @click.prevent="isResetMode = true; error = null" class="text-[9px] font-black text-slate-400 hover:text-sky-500 uppercase tracking-widest transition-colors">Mot de passe oublié ?</button>
+              <button type="button" @click.prevent="isResetMode = true; error = null" class="text-[9px] font-black text-slate-400 hover:text-sky-500 uppercase tracking-widest transition-colors">Mot de passe oublié ?</button>
             </div>
           </div>
 

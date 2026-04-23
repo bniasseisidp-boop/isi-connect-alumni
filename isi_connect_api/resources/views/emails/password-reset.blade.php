@@ -31,14 +31,15 @@
             <p><strong>ALERTE SÉCURITÉ :</strong> Cet accès est temporaire. Dès votre connexion, le système vous demandera obligatoirement de définir une nouvelle clef d'accès personnelle.</p>
             
             <p style="text-align: center;">
-                <a href="https://alumni.multibrain.cloud/login" class="btn">RÉACTIVER MON COMPTE</a>
+                <a href="https://alumni.isisuptech.com/login" class="btn">RÉACTIVER MON COMPTE</a>
             </p>
 
             <p>Si vous n'êtes pas à l'origine de cette demande, vous pouvez ignorer cet email.</p>
             <p>À bientôt sur le réseau !</p>
         </div>
         <div class="footer">
-            <p>&copy; {{ date('Y') }} ISI Suptech Connect. Matrix Security Protocol.</p>
+            <p>&copy; {{ date('Y') }} ISI Suptech Alumni. Matrix Security Protocol.</p>
+            <p style="font-size: 10px; color: #bbb;">Plateforme développée par <strong>Multibrain Tech</strong></p>
         </div>
     </div>
 </body>
