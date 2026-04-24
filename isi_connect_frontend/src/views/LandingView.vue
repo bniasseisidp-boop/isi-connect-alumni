@@ -1,6 +1,13 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { theme, setTheme } from '../theme'
 const isMenuOpen = ref(false)
+const landingDark = ref(theme.value === 'dark-purple')
+const toggleLandingTheme = () => {
+  const next = landingDark.value ? 'light' : 'dark-purple'
+  setTheme(next)
+  landingDark.value = !landingDark.value
+}
 
 import { RouterLink } from 'vue-router'
 import apiClient, { STORAGE_URL } from '../api'
@@ -558,7 +565,7 @@ const installPWA = async () => {
               </div>
               <div>
                 <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Support / Contact</p>
-                <p class="text-white font-medium text-lg">suptech@suptech.com</p>
+                <p class="text-white font-medium text-lg">suptech@isisuptech.com</p>
               </div>
             </div>
           </div>
@@ -593,13 +600,60 @@ const installPWA = async () => {
     </section>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t border-slate-800/50 py-10 text-center bg-slate-950">
-      <div class="flex items-center justify-center space-x-2 mb-4 opacity-50">
-        <img :src="isiLogo" alt="ISI Logo" class="h-6 w-auto grayscale" />
+    <footer class="relative z-10 border-t border-slate-800/50 bg-slate-950">
+      <!-- Main footer -->
+      <div class="max-w-7xl mx-auto px-6 md:px-10 py-16 grid grid-cols-1 md:grid-cols-3 gap-10 text-slate-400">
+        <!-- Brand -->
+        <div>
+          <div class="flex items-center space-x-3 mb-4">
+            <img :src="isiLogo" alt="ISI Logo" class="h-8 w-auto bg-white p-1 rounded-lg" />
+            <span class="font-black text-white uppercase tracking-widest text-sm">ISI Alumni</span>
+          </div>
+          <p class="text-sm leading-relaxed text-slate-500">Hub numérique des anciens élèves de l'Institut Supérieur d'Informatique Suptech.</p>
+        </div>
+        <!-- Links -->
+        <div>
+          <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Navigation</p>
+          <div class="space-y-2">
+            <a href="#features" class="block text-sm hover:text-sky-400 transition-colors">Le Hub</a>
+            <a href="#alumni" class="block text-sm hover:text-sky-400 transition-colors">Les Alumni</a>
+            <a href="#app-download" class="block text-sm hover:text-sky-400 transition-colors">Application</a>
+            <RouterLink to="/login" class="block text-sm hover:text-sky-400 transition-colors">Connexion</RouterLink>
+            <RouterLink to="/register" class="block text-sm hover:text-sky-400 transition-colors">S'inscrire</RouterLink>
+          </div>
+        </div>
+        <!-- Contact -->
+        <div>
+          <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Contact</p>
+          <div class="space-y-3">
+            <a href="mailto:suptech@isisuptech.com" class="flex items-center space-x-2 text-sm hover:text-sky-400 transition-colors">
+              <EnvelopeIcon class="h-4 w-4 text-sky-500 shrink-0" />
+              <span>suptech@isisuptech.com</span>
+            </a>
+            <div class="flex items-center space-x-2 text-sm">
+              <MapPinIcon class="h-4 w-4 text-sky-500 shrink-0" />
+              <span>Sicap Liberté 3, Dakar</span>
+            </div>
+          </div>
+          <!-- Theme toggle -->
+          <div class="mt-6 flex items-center space-x-3">
+            <span class="text-[10px] uppercase tracking-widest text-slate-600">Thème</span>
+            <button @click="toggleLandingTheme" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all border border-slate-700">
+              <span>{{ landingDark ? '☀️ Clair' : '🌌 Sombre' }}</span>
+            </button>
+          </div>
+        </div>
       </div>
-      <p class="text-xs text-slate-500 font-medium uppercase tracking-[0.2em]">
-        © {{ new Date().getFullYear() }} ISI Connect. Un écosystème propulsé par ISI SUPTECH.
-      </p>
+      <!-- Bottom bar -->
+      <div class="border-t border-slate-800/60 py-6 px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-slate-600 uppercase tracking-[0.2em]">© {{ new Date().getFullYear() }} ISI Suptech Alumni. Tous droits réservés.</p>
+        <a href="https://multibrain.tech" target="_blank" rel="noopener" class="flex items-center space-x-2 opacity-50 hover:opacity-80 transition-opacity">
+          <div class="h-5 w-5 rounded bg-sky-500 flex items-center justify-center">
+            <span class="text-white font-black text-[7px]">MB</span>
+          </div>
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Développé par Multibrain Tech</span>
+        </a>
+      </div>
     </footer>
 
   </div>

@@ -275,28 +275,27 @@ watch(() => messengerState.activeChat, (newVal) => {
            </div>
 
            <!-- Messages Flow -->
-           <div id="chat-container" class="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 custom-scrollbar bg-slate-50/20 dark:bg-slate-950/20">
-            <template v-if="messengerState.activeChat">
-              <div v-for="msg in messages" :key="msg.id" class="flex" :class="msg.sender_id === auth.user.value.id ? 'justify-end' : 'justify-start'">
-                <div class="max-w-[85%] space-y-2">
-                  <!-- Sender Name for groups -->
-                  <p v-if="messengerState.activeChat.work_group_id && msg.sender_id !== auth.user.value.id" class="text-[8px] font-black text-slate-400 uppercase ml-4">{{ msg.sender?.name }}</p>
-                  
-                  <div class="rounded-[1.8rem] p-4 md:p-6 text-[11px] md:text-[13px] font-medium shadow-sm transition-all"
-                       :class="msg.sender_id === auth.user.value.id ? 'bg-slate-950 text-white rounded-br-none' : 'bg-white dark:bg-slate-800 border-2 border-slate-50 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-bl-none'"
-                  >
-                    <!-- Render by Type -->
-                    <p v-if="msg.type === 'text'">{{ msg.body }}</p>
-                    <img v-else-if="msg.type === 'image'" :src="msg.file_url" class="rounded-xl max-w-full hover:scale-[1.02] transition-transform" />
-                    <video v-else-if="msg.type === 'video'" :src="msg.file_url" controls class="rounded-xl max-w-full"></video>
-                    <audio v-else-if="msg.type === 'voice'" :src="msg.file_url" controls class="w-full max-w-[200px] h-8 md:h-10 opacity-90 hover:opacity-100 transition-opacity"></audio>
+           <div id="chat-container" class="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/20 dark:bg-slate-950/20">
+            <div class="flex flex-col justify-end min-h-full p-4 md:p-6 space-y-4">
+              <template v-if="messengerState.activeChat">
+                <div v-for="msg in messages" :key="msg.id" class="flex" :class="msg.sender_id === auth.user.value.id ? 'justify-end' : 'justify-start'">
+                  <div class="max-w-[80%] space-y-1">
+                    <p v-if="messengerState.activeChat.work_group_id && msg.sender_id !== auth.user.value.id" class="text-[8px] font-black text-slate-400 uppercase ml-3">{{ msg.sender?.name }}</p>
+                    <div class="rounded-[1.5rem] px-4 py-3 text-[12px] md:text-[13px] font-medium shadow-sm"
+                         :class="msg.sender_id === auth.user.value.id ? 'bg-slate-950 text-white rounded-br-sm' : 'bg-white dark:bg-slate-800 border border-slate-100 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-bl-sm'"
+                    >
+                      <p v-if="msg.type === 'text'">{{ msg.body }}</p>
+                      <img v-else-if="msg.type === 'image'" :src="msg.file_url" class="rounded-xl max-w-full hover:scale-[1.02] transition-transform" />
+                      <video v-else-if="msg.type === 'video'" :src="msg.file_url" controls class="rounded-xl max-w-full"></video>
+                      <audio v-else-if="msg.type === 'voice'" :src="msg.file_url" controls class="w-full max-w-[200px]"></audio>
+                    </div>
                   </div>
                 </div>
+              </template>
+              <div v-else class="flex flex-col items-center justify-center py-16 opacity-30 select-none">
+                <SparklesIcon class="h-16 w-16 text-sky-500/50 mb-4 animate-pulse" />
+                <p class="text-[9px] font-black uppercase tracking-[0.5rem] text-slate-400">CHOISISSEZ UNE MATRICE</p>
               </div>
-            </template>
-            <div v-else class="h-full flex flex-col items-center justify-center opacity-30 select-none">
-               <SparklesIcon class="h-20 w-20 text-sky-500/50 mb-6 animate-pulse" />
-               <p class="text-[9px] font-black uppercase tracking-[0.5rem] text-slate-400">CHOISISSEZ UNE MATRICE</p>
             </div>
            </div>
 

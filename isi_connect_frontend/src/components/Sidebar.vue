@@ -119,15 +119,13 @@ import {
   SparklesIcon,
   ArrowRightOnRectangleIcon,
   SunIcon,
-  MoonIcon,
   StarIcon
 } from '@heroicons/vue/24/outline'
 import { theme, setTheme } from '../theme'
 
 const themes = [
-  { id: 'light',       label: 'Blanc',         bg: '#f8fafc', color: '#0ea5e9', icon: SunIcon    },
-  { id: 'dark-blue',   label: 'Sombre Bleu',   bg: '#0f172a', color: '#38bdf8', icon: MoonIcon   },
-  { id: 'dark-purple', label: 'Sombre Violet',  bg: '#0d0d1a', color: '#a78bfa', icon: StarIcon   },
+  { id: 'light',       label: 'Blanc',          bg: '#f8fafc', color: '#0ea5e9', icon: SunIcon  },
+  { id: 'dark-purple', label: 'Sombre Violet',  bg: '#0d0d1a', color: '#a78bfa', icon: StarIcon },
 ]
 
 const auth = useAuth()
