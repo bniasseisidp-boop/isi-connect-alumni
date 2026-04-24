@@ -1,9 +1,10 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import Sidebar from '../components/Sidebar.vue'
 import MessengerOverlay from '../components/MessengerOverlay.vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import apiClient from '../api'
 
 const isMobileMenuOpen = ref(false)
 const route = useRoute()
@@ -15,6 +16,16 @@ watch(() => route.path, () => {
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value
 }
+
+// Heartbeat: met à jour last_seen_at toutes les 30s pour la présence en ligne
+let heartbeatInterval = null
+onMounted(() => {
+  apiClient.get('/ping').catch(() => {})
+  heartbeatInterval = setInterval(() => {
+    apiClient.get('/ping').catch(() => {})
+  }, 30000)
+})
+onUnmounted(() => clearInterval(heartbeatInterval))
 </script>
 
 <template>

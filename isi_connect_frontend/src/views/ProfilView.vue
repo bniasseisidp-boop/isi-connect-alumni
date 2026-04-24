@@ -46,10 +46,14 @@ const getUserPhoto = () => {
 
 const onFileSelected = (event) => {
     const file = event.target.files[0];
-    if (file) {
-        selectedFile.value = file;
-        previewUrl.value = URL.createObjectURL(file);
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+        errorMessage.value = 'IMAGE TROP LOURDE : MAX 10MB AUTORISÉ.'
+        return
     }
+    selectedFile.value = file;
+    previewUrl.value = URL.createObjectURL(file);
+    errorMessage.value = null;
 };
 
 const handleUpdateProfile = async () => {

@@ -219,17 +219,17 @@ onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
 })
 
-const deferredPrompt = ref(null);
+const deferredPrompt = ref(null)
+const showInstallGuide = ref(false)
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+
 const installPWA = async () => {
   if (deferredPrompt.value) {
-    deferredPrompt.value.prompt();
-    const { outcome } = await deferredPrompt.value.userChoice;
-    if (outcome === 'accepted') {
-      console.log('User accepted the A2HS prompt');
-    }
-    deferredPrompt.value = null; // Can only be used once
+    deferredPrompt.value.prompt()
+    const { outcome } = await deferredPrompt.value.userChoice
+    deferredPrompt.value = null
   } else {
-    alert("Votre navigateur ne supporte pas d'installation directe ou l'application est déjà installée.");
+    showInstallGuide.value = true
   }
 }
 </script>

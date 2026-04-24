@@ -40,10 +40,14 @@ const fetchPosts = async () => {
 
 const onFileSelected = (event) => {
   const file = event.target.files[0]
-  if (file) {
-    newPost.value.image = file
-    previewUrl.value = URL.createObjectURL(file)
+  if (!file) return
+  if (file.size > 10 * 1024 * 1024) {
+    errorMessage.value = 'IMAGE TROP LOURDE : MAX 10MB AUTORISÉ.'
+    return
   }
+  newPost.value.image = file
+  previewUrl.value = URL.createObjectURL(file)
+  errorMessage.value = null
 }
 
 const handleCreatePost = async () => {
@@ -233,7 +237,7 @@ const commentInputs = ref({})
           </p>
           
           <div v-if="post.image_path" class="rounded-[3rem] overflow-hidden border-4 border-slate-50 shadow-2xl">
-             <img :src="STORAGE_URL + post.image_path" class="w-full object-contain max-h-[600px] bg-slate-900" />
+             <img :src="STORAGE_URL + post.image_path" class="w-full object-contain max-h-[600px] bg-slate-100" @error="(e) => e.target.style.display='none'" />
           </div>
         </div>
 

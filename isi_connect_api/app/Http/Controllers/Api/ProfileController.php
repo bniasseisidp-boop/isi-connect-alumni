@@ -53,7 +53,7 @@ class ProfileController extends Controller
                 'max:255',
                 Rule::unique('users')->ignore($user->id), // Doit être unique, SAUF pour cet utilisateur
             ],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation de la photo
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
 
         if ($validator->fails()) {

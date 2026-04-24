@@ -76,6 +76,9 @@ Route::get('/stats', function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    // Heartbeat pour la présence en ligne (met à jour last_seen_at via TrackLastSeen middleware)
+    Route::get('/ping', fn() => response()->json(['ok' => true]));
+
     // --- Auth & Profil ---
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/user/update-password', [AuthController::class, 'updatePassword']);
