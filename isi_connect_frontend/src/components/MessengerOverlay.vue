@@ -290,9 +290,13 @@ watch(() => messengerState.activeChat, (newVal) => {
                       <p v-if="msg.type === 'text'" class="whitespace-pre-wrap break-words">{{ msg.body }}</p>
                       <img v-else-if="msg.type === 'image'" :src="msg.file_url" class="rounded-xl max-w-full hover:scale-[1.02] transition-transform" />
                       <video v-else-if="msg.type === 'video'" :src="msg.file_url" controls class="rounded-xl max-w-full"></video>
-                      <div v-else-if="msg.type === 'voice'" class="flex items-center space-x-2 py-1">
-                        <MicrophoneIcon class="h-4 w-4 shrink-0 opacity-60" />
-                        <audio :src="msg.file_url" controls preload="none" class="voice-audio h-8" style="min-width:160px;max-width:200px;"></audio>
+                      <div v-else-if="msg.type === 'voice'" class="flex flex-col space-y-1 py-1">
+                        <div class="flex items-center space-x-2 text-[10px] opacity-60 font-bold uppercase tracking-widest">
+                          <MicrophoneIcon class="h-3 w-3" />
+                          <span>Message vocal</span>
+                        </div>
+                        <audio v-if="msg.file_url" :src="msg.file_url" controls preload="none" class="voice-audio" style="width:200px;"></audio>
+                        <span v-else class="text-[10px] text-red-400">Fichier audio indisponible</span>
                       </div>
                     </div>
                   </div>
@@ -361,17 +365,13 @@ watch(() => messengerState.activeChat, (newVal) => {
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.2); border-radius: 10px; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* Fix audio player black box on mobile browsers */
+/* Fix audio player on mobile browsers */
 .voice-audio {
-  -webkit-appearance: none;
-  appearance: none;
   background: transparent;
   border-radius: 8px;
   outline: none;
   color-scheme: light;
-}
-.voice-audio::-webkit-media-controls-panel {
-  background-color: rgba(14, 165, 233, 0.1);
-  border-radius: 8px;
+  display: block;
+  height: 40px;
 }
 </style>
