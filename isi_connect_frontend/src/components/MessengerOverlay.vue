@@ -45,12 +45,16 @@ const fetchConversations = async () => {
 const fetchMessages = async () => {
   if (!messengerState.activeChat) return
   try {
-    let endpoint = messengerState.activeChat.work_group_id 
+    let endpoint = messengerState.activeChat.work_group_id
       ? `/messenger/group/${messengerState.activeChat.work_group_id}`
       : `/messenger/${messengerState.activeChat.id}`
-    
+
     const response = await apiClient.get(endpoint)
-    messages.value = response.data.messages
+    const incoming = response.data.messages || []
+    if (incoming.length !== messages.value.length) {
+      messages.value = incoming
+      scrollToBottom()
+    }
   } catch (error) {
     console.error("ERREUR MESSAGES:", error)
   }
@@ -71,12 +75,13 @@ const sendMessage = async (payload = null) => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
     } else {
-      if (!newMessage.value.trim()) return
+      const text = newMessage.value.trim()
+      if (!text) return
+      newMessage.value = ''
       response = await apiClient.post(endpoint, {
-        body: newMessage.value,
+        body: text,
         type: 'text'
       })
-      newMessage.value = ''
     }
     
     messages.value.push(response.data)
@@ -172,10 +177,8 @@ const getGroupPhoto = (group) => {
 onMounted(() => {
   fetchConversations()
   intervalId.value = setInterval(() => {
-    if (messengerState.isOpen) {
-      if (messengerState.activeChat) fetchMessages()
-    }
-  }, 4000)
+    if (messengerState.isOpen && messengerState.activeChat) fetchMessages()
+  }, 2000)
 })
 
 onUnmounted(() => {
@@ -205,7 +208,7 @@ watch(() => messengerState.activeChat, (newVal) => {
       leave-from-class="translate-x-0 opacity-100 scale-100 blur-0"
       leave-to-class="translate-x-full opacity-0 scale-90 blur-xl"
     >
-      <div v-if="messengerState.isOpen" class="w-[calc(100vw-32px)] sm:w-[420px] md:w-[480px] h-[75vh] md:h-[650px] bg-white dark:bg-slate-950 rounded-3xl md:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.4)] border-2 border-slate-50 dark:border-white/5 flex overflow-hidden relative transition-all">
+      <div v-if="messengerState.isOpen" class="w-[340px] sm:w-[420px] md:w-[480px] h-[75vh] md:h-[650px] bg-white dark:bg-slate-950 rounded-3xl md:rounded-[3rem] shadow-[0_50px_100px_rgba(0,0,0,0.4)] border-2 border-slate-50 dark:border-white/5 flex overflow-hidden relative transition-all">
 
         <!-- Sidebar Conversations Hub -->
         <div class="w-16 md:w-20 bg-slate-950 flex flex-col items-center py-6 space-y-8 border-r border-white/5 overflow-y-auto custom-scrollbar no-scrollbar">
@@ -284,10 +287,13 @@ watch(() => messengerState.activeChat, (newVal) => {
                     <div class="rounded-[1.5rem] px-4 py-3 text-[12px] md:text-[13px] font-medium shadow-sm"
                          :class="msg.sender_id === auth.user.value.id ? 'bg-slate-950 text-white rounded-br-sm' : 'bg-white dark:bg-slate-800 border border-slate-100 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-bl-sm'"
                     >
-                      <p v-if="msg.type === 'text'">{{ msg.body }}</p>
+                      <p v-if="msg.type === 'text'" class="whitespace-pre-wrap break-words">{{ msg.body }}</p>
                       <img v-else-if="msg.type === 'image'" :src="msg.file_url" class="rounded-xl max-w-full hover:scale-[1.02] transition-transform" />
                       <video v-else-if="msg.type === 'video'" :src="msg.file_url" controls class="rounded-xl max-w-full"></video>
-                      <audio v-else-if="msg.type === 'voice'" :src="msg.file_url" controls class="w-full max-w-[200px]"></audio>
+                      <div v-else-if="msg.type === 'voice'" class="flex items-center space-x-2 py-1">
+                        <MicrophoneIcon class="h-4 w-4 shrink-0 opacity-60" />
+                        <audio :src="msg.file_url" controls preload="none" class="voice-audio h-8" style="min-width:160px;max-width:200px;"></audio>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -311,7 +317,7 @@ watch(() => messengerState.activeChat, (newVal) => {
                <div class="flex-1 relative">
                  <textarea 
                    v-model="newMessage"
-                   @keyup.enter.prevent="sendMessage()"
+                   @keydown.enter.exact.prevent="sendMessage()"
                    rows="1"
                    class="w-full bg-slate-50 dark:bg-white/5 rounded-2xl p-4 pr-14 text-xs md:text-sm font-bold border-2 border-transparent focus:border-sky-500 transition-all outline-none resize-none no-scrollbar shadow-inner text-slate-800 dark:text-white"
                    placeholder="ÉMETTRE SIGNAL..."
@@ -354,4 +360,18 @@ watch(() => messengerState.activeChat, (newVal) => {
 .custom-scrollbar::-webkit-scrollbar { width: 4px; }
 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.2); border-radius: 10px; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Fix audio player black box on mobile browsers */
+.voice-audio {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border-radius: 8px;
+  outline: none;
+  color-scheme: light;
+}
+.voice-audio::-webkit-media-controls-panel {
+  background-color: rgba(14, 165, 233, 0.1);
+  border-radius: 8px;
+}
 </style>
