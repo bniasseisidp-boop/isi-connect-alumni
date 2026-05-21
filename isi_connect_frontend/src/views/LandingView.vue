@@ -1,4 +1,4 @@
-﻿<script setup>
+<script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { theme, setTheme } from '../theme'
 const isMenuOpen = ref(false)
@@ -99,7 +99,7 @@ onMounted(async () => {
     const response = await apiClient.get('/public/showcase-alumni')
     alumniProfiles.value = response.data
   } catch (error) {
-    console.error("Impossible de rÃ©cupÃ©rer les anciens Ã©lÃ¨ves", error)
+    console.error("Impossible de récupérer les anciens élèves", error)
   } finally {
     isLoadingAlumni.value = false
   }
@@ -263,7 +263,7 @@ const installPWA = async () => {
       <!-- Center Anchor Links (Desktop) -->
       <div class="hidden lg:flex items-center" style="gap: 2.5rem;">
         <a href="#features" class="text-sm font-black text-slate-500 hover:text-sky-600 uppercase tracking-widest transition-all drop-shadow-sm hover:scale-105">Le Hub</a>
-        <a href="#alumni" class="text-sm font-black text-slate-500 hover:text-sky-600 uppercase tracking-widest transition-all drop-shadow-sm hover:scale-105">FiertÃ©</a>
+        <a href="#alumni" class="text-sm font-black text-slate-500 hover:text-sky-600 uppercase tracking-widest transition-all drop-shadow-sm hover:scale-105">Fierté</a>
         <a href="#app-download" class="text-sm font-black text-slate-500 hover:text-sky-600 uppercase tracking-widest transition-all drop-shadow-sm hover:scale-105">Mobile</a>
         <a href="#campus" class="text-sm font-black text-slate-500 hover:text-sky-600 uppercase tracking-widest transition-all drop-shadow-sm hover:scale-105">Campus</a>
       </div>
@@ -295,10 +295,10 @@ const installPWA = async () => {
 
     <!-- MOBILE NAVIGATION OVERLAY -->
     <div v-if="isMenuOpen" class="fixed inset-0 z-[60] bg-slate-950/98 backdrop-blur-3xl animate-in fade-in zoom-in duration-300 flex flex-col p-8 md:p-10">
-      <button @click="isMenuOpen = false" class="self-end p-4 text-white/50 hover:text-white transition-all text-xl font-light focus:outline-none">âœ• Fermer</button>
+      <button @click="isMenuOpen = false" class="self-end p-4 text-white/50 hover:text-white transition-all text-xl font-light focus:outline-none">✕ Fermer</button>
       
       <div class="flex-1 flex flex-col justify-center items-center gap-6 md:gap-8">
-        <a v-for="link in [{h:'#home',l:'Accueil'},{h:'#features',l:'Le Hub'},{h:'#alumni',l:'FiertÃ©'},{h:'#app-download',l:'Mobile'},{h:'#campus',l:'Campus'}]" 
+        <a v-for="link in [{h:'#home',l:'Accueil'},{h:'#features',l:'Le Hub'},{h:'#alumni',l:'Fierté'},{h:'#app-download',l:'Mobile'},{h:'#campus',l:'Campus'}]" 
            :key="link.h" :href="link.h" @click="isMenuOpen = false"
            class="text-xl md:text-2xl font-black text-white hover:text-sky-400 uppercase tracking-[0.2em] transition-all active:scale-95">
           {{ link.l }}
@@ -317,25 +317,25 @@ const installPWA = async () => {
       
       <div class="relative z-10 inline-flex items-center space-x-2 bg-white border border-sky-100 shadow-xl shadow-sky-100 px-5 py-2.5 rounded-full mb-8 animate-fade-in-down">
         <SparklesIcon class="h-4 w-4 text-sky-500" />
-        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-sky-600">RÃ©seau d'Excellence NumÃ©rique</span>
+        <span class="text-[10px] font-black uppercase tracking-[0.3em] text-sky-600">Réseau d'Excellence Numérique</span>
       </div>
       
       <h1 class="relative z-10 text-4xl md:text-8xl font-black tracking-tighter leading-none mb-8 animate-fade-in-up text-slate-900 drop-shadow-sm uppercase">
-        L'Ã‰cosystÃ¨me des <br>
+        L'Écosystème des <br>
         <span class="text-sky-600 drop-shadow-lg font-black">Alumni ISI Suptech</span>
       </h1>
 
       
       <p class="relative z-10 text-lg md:text-xl text-slate-700 max-w-2xl font-bold mb-12 animate-fade-in-up delay-100">
-        Bienvenue sur ISI Suptech Alumni, la plateforme exclusive pour connecter les diplÃ´mÃ©s, propulser les carriÃ¨res, partager des opportunitÃ©s et faire rayonner l'excellence de notre institut.
+        Bienvenue sur ISI Connect, la plateforme exclusive pour connecter les diplômés, propulser les carrières, partager des opportunités et faire rayonner l'excellence de notre institut.
       </p>
       
       <div class="relative z-10 flex flex-col sm:flex-row items-center gap-6 animate-fade-in-up delay-200">
         <RouterLink to="/register" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-white px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest shadow-xl shadow-sky-500/30 hover:scale-105 transition-all outline-none">
-          CrÃ©er un compte
+          Créer un compte
         </RouterLink>
         <a href="#features" class="w-full sm:w-auto text-slate-800 hover:text-sky-600 px-10 py-5 rounded-full text-sm font-black uppercase tracking-widest transition-colors flex items-center justify-center group bg-white border border-slate-200 shadow-xl shadow-slate-100 hover:border-sky-200 hover:shadow-sky-100">
-          DÃ©couvrir
+          Découvrir
           <svg class="w-4 h-4 ml-2 group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
@@ -350,7 +350,7 @@ const installPWA = async () => {
         <div class="text-center mb-12 md:mb-20 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
           <h2 class="text-3xl md:text-5xl font-black tracking-tighter mb-4 text-slate-900 drop-shadow-sm uppercase">Le <span class="text-sky-500">Hub</span> Digital</h2>
 
-          <p class="text-slate-500 font-medium">Des outils taillÃ©s sur mesure pour votre Ã©volution professionnelle.</p>
+          <p class="text-slate-500 font-medium">Des outils taillés sur mesure pour votre évolution professionnelle.</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -361,7 +361,7 @@ const installPWA = async () => {
             </div>
             <h3 class="text-2xl font-black mb-4 text-slate-800">Annuaire Global</h3>
             <p class="text-slate-500 text-sm leading-relaxed font-medium">
-              Retrouvez facilement vos anciens camarades de promotion. Discutez en temps rÃ©el via la messagerie intÃ©grÃ©e et dÃ©veloppez votre rÃ©seau.
+              Retrouvez facilement vos anciens camarades de promotion. Discutez en temps réel via la messagerie intégrée et développez votre réseau.
             </p>
           </div>
           
@@ -370,9 +370,9 @@ const installPWA = async () => {
             <div class="h-16 w-16 bg-white shadow-[0_0_20px_rgba(59,130,246,0.1)] border border-slate-100 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-blue-50 transition-all">
               <BriefcaseIcon class="h-8 w-8 text-blue-500 group-hover:text-blue-600" />
             </div>
-            <h3 class="text-2xl font-black mb-4 text-slate-800">OpportunitÃ©s Pro</h3>
+            <h3 class="text-2xl font-black mb-4 text-slate-800">Opportunités Pro</h3>
             <p class="text-slate-500 text-sm leading-relaxed font-medium">
-              AccÃ©dez Ã  un marchÃ© de l'emploi privilÃ©giÃ©. Partagez des offres CDI, stages ou missions freelance issues de nos entreprises partenaires.
+              Accédez à un marché de l'emploi privilégié. Partagez des offres CDI, stages ou missions freelance issues de nos entreprises partenaires.
             </p>
           </div>
           
@@ -383,7 +383,7 @@ const installPWA = async () => {
             </div>
             <h3 class="text-2xl font-black mb-4 text-slate-800">Forums & Groupes</h3>
             <p class="text-slate-500 text-sm leading-relaxed font-medium">
-              Rejoignez des groupes de travail thÃ©matiques et participez aux discussions pour entraider les anciennes et futures gÃ©nÃ©rations.
+              Rejoignez des groupes de travail thématiques et participez aux discussions pour entraider les anciennes et futures générations.
             </p>
           </div>
         </div>
@@ -395,11 +395,11 @@ const installPWA = async () => {
       <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row items-end justify-between mb-20 animate-on-scroll opacity-0 translate-y-10 transition-all duration-1000">
           <div>
-            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-slate-900 drop-shadow-sm">Notre FiertÃ© : <span class="text-sky-500">Les Alumni</span></h2>
-            <p class="text-slate-500 font-medium">DÃ©couvrez quelques membres brillants dÃ©jÃ  inscrits sur la plateforme.</p>
+            <h2 class="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-slate-900 drop-shadow-sm">Notre Fierté : <span class="text-sky-500">Les Alumni</span></h2>
+            <p class="text-slate-500 font-medium">Découvrez quelques membres brillants déjà inscrits sur la plateforme.</p>
           </div>
           <RouterLink to="/register" class="mt-8 md:mt-0 text-[11px] font-black uppercase tracking-[0.3em] text-sky-500 hover:text-sky-600 bg-white hover:bg-sky-50 border border-sky-100 px-6 py-3 rounded-full shadow-md hover:shadow-sky-500/30 transition-all flex items-center">
-            Rejoignez-les <span class="ml-2">â†’</span>
+            Rejoignez-les <span class="ml-2">→</span>
           </RouterLink>
         </div>
         
@@ -410,7 +410,7 @@ const installPWA = async () => {
         <div v-if="alumniProfiles.length === 0" class="text-center py-20 px-4 max-w-lg mx-auto bg-slate-50 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50 animate-cinematic">
           <UserGroupIcon class="h-16 w-16 mx-auto mb-6 text-sky-300" />
           <h3 class="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Annuaire en cours</h3>
-          <p class="text-slate-500 font-medium">La famille ISI grandit. BientÃ´t, les talents s'afficheront ici.</p>
+          <p class="text-slate-500 font-medium">La famille ISI grandit. Bientôt, les talents s'afficheront ici.</p>
           <RouterLink to="/register" class="mt-8 inline-block bg-white border border-sky-100 text-sky-600 px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-sky-100/50 hover:bg-sky-50 hover:text-sky-700 hover:border-sky-300 transition-all">
             Soyez le premier
           </RouterLink>
@@ -446,7 +446,7 @@ const installPWA = async () => {
                 </div>
                 <div class="flex items-center text-slate-500 text-xs font-bold">
                   <BuildingOfficeIcon class="h-4 w-4 mr-3 text-sky-400" />
-                  <span class="truncate">{{ alumnus.profile?.company_name || 'Ã‰cosystÃ¨me NumÃ©rique' }}</span>
+                  <span class="truncate">{{ alumnus.profile?.company_name || 'Écosystème Numérique' }}</span>
                 </div>
               </div>
             </div>
@@ -467,9 +467,9 @@ const installPWA = async () => {
             <PhoneIcon class="h-4 w-4 text-sky-200" />
             <span class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Application Mobile</span>
           </div>
-          <h2 class="text-5xl lg:text-7xl font-black tracking-tighter mb-6 leading-none drop-shadow-xl">Le rÃ©seau,<br>dans votre poche.</h2>
+          <h2 class="text-5xl lg:text-7xl font-black tracking-tighter mb-6 leading-none drop-shadow-xl">Le réseau,<br>dans votre poche.</h2>
           <p class="text-sky-100 text-lg mb-10 font-medium max-w-lg leading-relaxed">
-            Installez l'application ISI Suptech Alumni directement sur votre smartphone en un clic (PWA). Recevez les alertes emplois et discutez en temps rÃ©el, partout.
+            Installez l'application ISI Connect directement sur votre smartphone en un clic (PWA). Recevez les alertes emplois et discutez en temps réel, partout.
           </p>
           <div class="flex space-x-4">
             <button @click="installPWA" class="bg-white text-blue-600 px-8 py-4 rounded-full font-black uppercase tracking-widest text-xs shadow-xl shadow-black/20 hover:scale-105 transition-transform flex items-center">
@@ -493,7 +493,7 @@ const installPWA = async () => {
             
             <!-- Mock App Body -->
             <div class="flex-1 bg-slate-50 p-4 space-y-4 overflow-hidden">
-               <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fil d'actualitÃ©</div>
+               <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Fil d'actualité</div>
                
                <div class="bg-white p-3 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-3">
                  <div class="h-8 w-8 rounded-full bg-sky-100 shrink-0"></div>
@@ -533,9 +533,9 @@ const installPWA = async () => {
             <MapPinIcon class="h-4 w-4 text-blue-400" />
             <span class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-300">Notre Campus</span>
           </div>
-          <h2 class="text-5xl lg:text-6xl font-black tracking-tighter mb-8 leading-none drop-shadow-md">Institut SupÃ©rieur <br>d'Informatique</h2>
+          <h2 class="text-5xl lg:text-6xl font-black tracking-tighter mb-8 leading-none drop-shadow-md">Institut Supérieur <br>d'Informatique</h2>
           <p class="text-slate-400 text-lg mb-10 font-medium">
-            Le point de dÃ©part de vos ambitions. ISI Suptech forme les leaders technologiques de demain, avec une pÃ©dagogie axÃ©e sur l'innovation et la pratique.
+            Le point de départ de vos ambitions. ISI Suptech forme les leaders technologiques de demain, avec une pédagogie axée sur l'innovation et la pratique.
           </p>
           
           <div class="space-y-6">
@@ -545,7 +545,7 @@ const installPWA = async () => {
               </div>
               <div>
                 <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Localisation Centrale</p>
-                <p class="text-white font-medium text-lg">Sicap LibertÃ© 3 NÂº1977, Dakar</p>
+                <p class="text-white font-medium text-lg">Sicap Liberté 3 Nº1977, Dakar</p>
               </div>
             </div>
             
@@ -554,7 +554,7 @@ const installPWA = async () => {
                 <PhoneIcon class="h-6 w-6 text-sky-400 group-hover:scale-110 transition-transform" />
               </div>
               <div>
-                <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Contact TÃ©lÃ©phonique</p>
+                <p class="text-[10px] text-slate-500 font-black uppercase tracking-widest">Contact Téléphonique</p>
                 <p class="text-white font-medium text-lg">00221 33 825 62 10</p>
               </div>
             </div>
@@ -589,7 +589,7 @@ const installPWA = async () => {
 
           <div class="absolute bottom-10 left-10 right-10 z-30 bg-slate-950/80 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 shadow-2xl">
             <h3 class="text-2xl font-black mb-2 text-white flex items-center"><MapPinIcon class="h-6 w-6 mr-2 text-sky-400" /> Rejoignez-nous sur le Campus</h3>
-            <p class="text-slate-400 text-sm mb-6 font-medium">L'Ã©picentre technologique oÃ¹ les gÃ©nÃ©rations d'hier et de demain se rencontrent.</p>
+            <p class="text-slate-400 text-sm mb-6 font-medium">L'épicentre technologique où les générations d'hier et de demain se rencontrent.</p>
             <RouterLink to="/register" class="inline-flex items-center justify-center w-full bg-sky-500 text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl hover:bg-sky-400 hover:shadow-lg hover:shadow-sky-500/50 transition-all">
               S'inscrire maintenant
             </RouterLink>
@@ -609,7 +609,7 @@ const installPWA = async () => {
             <img :src="isiLogo" alt="ISI Logo" class="h-8 w-auto bg-white p-1 rounded-lg" />
             <span class="font-black text-white uppercase tracking-widest text-sm">ISI Suptech Alumni</span>
           </div>
-          <p class="text-sm leading-relaxed text-slate-500">Hub numÃ©rique des anciens Ã©lÃ¨ves de l'Institut SupÃ©rieur d'Informatique Suptech.</p>
+          <p class="text-sm leading-relaxed text-slate-500">Hub numérique des anciens élèves de l'Institut Supérieur d'Informatique Suptech.</p>
         </div>
         <!-- Links -->
         <div>
@@ -632,26 +632,26 @@ const installPWA = async () => {
             </a>
             <div class="flex items-center space-x-2 text-sm">
               <MapPinIcon class="h-4 w-4 text-sky-500 shrink-0" />
-              <span>Sicap LibertÃ© 3, Dakar</span>
+              <span>Sicap Liberté 3, Dakar</span>
             </div>
           </div>
           <!-- Theme toggle -->
           <div class="mt-6 flex items-center space-x-3">
-            <span class="text-[10px] uppercase tracking-widest text-slate-600">ThÃ¨me</span>
+            <span class="text-[10px] uppercase tracking-widest text-slate-600">Thème</span>
             <button @click="toggleLandingTheme" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all border border-slate-700">
-              <span>{{ landingDark ? 'â˜€ï¸ Clair' : 'ðŸŒŒ Sombre' }}</span>
+              <span>{{ landingDark ? '☀️ Clair' : '🌌 Sombre' }}</span>
             </button>
           </div>
         </div>
       </div>
       <!-- Bottom bar -->
       <div class="border-t border-slate-800/60 py-6 px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p class="text-xs text-slate-600 uppercase tracking-[0.2em]">Â© {{ new Date().getFullYear() }} ISI Suptech Alumni. Tous droits rÃ©servÃ©s.</p>
+        <p class="text-xs text-slate-600 uppercase tracking-[0.2em]">© {{ new Date().getFullYear() }} ISI Suptech Alumni. Tous droits réservés.</p>
         <a href="https://multibrain.tech" target="_blank" rel="noopener" class="flex items-center space-x-2 opacity-50 hover:opacity-80 transition-opacity">
           <div class="h-5 w-5 rounded bg-sky-500 flex items-center justify-center">
             <span class="text-white font-black text-[7px]">MB</span>
           </div>
-          <span class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">DÃ©veloppÃ© par Multibrain Tech</span>
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Développé par Multibrain Tech</span>
         </a>
       </div>
     </footer>
@@ -681,4 +681,3 @@ const installPWA = async () => {
 .delay-100 { animation-delay: 100ms; }
 .delay-200 { animation-delay: 200ms; }
 </style>
-

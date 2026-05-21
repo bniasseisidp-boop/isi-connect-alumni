@@ -123,6 +123,7 @@ let pollInterval = null
 let durationInterval = null
 let durationSeconds = 0
 let processedIceCandidates = new Set()
+let pendingIceCandidates = []
 
 const STUN_SERVERS = {
   iceServers: [
@@ -160,6 +161,13 @@ const startCall = async (user, voiceOnly = false) => {
   })
 
   activeCall.value = res.data.call
+  // Flush buffered ICE candidates now that room_id is known
+  for (const c of pendingIceCandidates) {
+    apiClient.post(`/video-calls/${activeCall.value.room_id}/ice`, {
+      candidate: JSON.stringify(c)
+    }).catch(() => {})
+  }
+  pendingIceCandidates = []
   showCall.value = true
   connecting.value = true
   startPolling()
@@ -184,6 +192,13 @@ const acceptCall = async () => {
 
   activeCall.value = incomingCall.value
   incomingCall.value = null
+  // Flush buffered ICE candidates
+  for (const c of pendingIceCandidates) {
+    apiClient.post(`/video-calls/${activeCall.value.room_id}/ice`, {
+      candidate: JSON.stringify(c)
+    }).catch(() => {})
+  }
+  pendingIceCandidates = []
   showCall.value = true
   connecting.value = true
   startPolling()
@@ -219,10 +234,14 @@ const setupPCEvents = () => {
   }
 
   pc.onicecandidate = async (e) => {
-    if (e.candidate && activeCall.value) {
+    if (!e.candidate) return
+    if (activeCall.value) {
       await apiClient.post(`/video-calls/${activeCall.value.room_id}/ice`, {
         candidate: JSON.stringify(e.candidate)
       }).catch(() => {})
+    } else {
+      // Buffer candidates until room_id is known
+      pendingIceCandidates.push(e.candidate)
     }
   }
 
@@ -284,6 +303,7 @@ const cleanup = () => {
   callDuration.value = '00:00'
   isVoiceOnly.value = false
   processedIceCandidates.clear()
+  pendingIceCandidates = []
 }
 
 const toggleMic = () => {
