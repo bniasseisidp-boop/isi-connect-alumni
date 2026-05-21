@@ -159,9 +159,7 @@ const addMember = async (userId) => {
   isAddingMember.value = true
   try {
     await apiClient.post(`/work-groups/${selectedGroup.value.id}/members`, { user_id: userId })
-    alert("MEMBRE AJOUTÉ AVEC SUCCÈS À LA MATRICE.")
-    fetchGroups()
-    // Refresh selected group data if needed
+    await fetchGroups()
     const updatedGroup = groups.value.find(g => g.id === selectedGroup.value.id)
     if (updatedGroup) selectedGroup.value = updatedGroup
   } catch (error) {
@@ -169,6 +167,19 @@ const addMember = async (userId) => {
     alert(error.response?.data?.message || "ÉCHEC DE L'AJOUT.")
   } finally {
     isAddingMember.value = false
+  }
+}
+
+const removeMember = async (userId) => {
+  if (!confirm("Retirer ce membre du groupe ?")) return
+  try {
+    await apiClient.delete(`/work-groups/${selectedGroup.value.id}/members/${userId}`)
+    await fetchGroups()
+    const updatedGroup = groups.value.find(g => g.id === selectedGroup.value.id)
+    if (updatedGroup) selectedGroup.value = updatedGroup
+  } catch (error) {
+    console.error("ERREUR REMOVE MEMBER:", error)
+    alert(error.response?.data?.message || "ÉCHEC DE LA SUPPRESSION.")
   }
 }
 
@@ -446,9 +457,18 @@ onMounted(fetchGroups)
 
              <div class="pt-6 border-t border-slate-100">
                 <h4 class="text-[10px] font-black text-slate-900 uppercase tracking-widest mb-4">MEMBRES ACTUELS ({{ selectedGroup?.members.length }})</h4>
-                <div class="flex flex-wrap gap-2">
-                   <div v-for="member in selectedGroup?.members" :key="member.id" class="px-3 py-2 bg-slate-100 rounded-lg text-[9px] font-black text-slate-600 uppercase">
-                      {{ member.user.name }}
+                <div class="space-y-2">
+                   <div v-for="member in selectedGroup?.members" :key="member.id"
+                        class="flex items-center justify-between px-3 py-2 bg-slate-100 rounded-xl">
+                      <span class="text-[9px] font-black text-slate-600 uppercase">{{ member.user.name }}</span>
+                      <button
+                        v-if="isCreator(selectedGroup) && member.user_id !== auth.user.value?.id"
+                        @click="removeMember(member.user_id)"
+                        class="h-6 w-6 rounded-lg bg-red-100 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all"
+                        title="Retirer ce membre"
+                      >
+                        <TrashIcon class="h-3 w-3" />
+                      </button>
                    </div>
                 </div>
              </div>

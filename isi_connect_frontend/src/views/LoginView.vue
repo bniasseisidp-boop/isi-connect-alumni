@@ -93,9 +93,15 @@
 
         <div class="mt-12 text-center">
           <p class="text-slate-400 text-xs font-bold uppercase tracking-widest">
-            PAS ENCORE MEMBRE ? 
+            PAS ENCORE MEMBRE ?
             <RouterLink to="/register" class="text-sky-600 hover:text-sky-800 font-extrabold underline decoration-sky-200 underline-offset-[12px] transition-all ml-2">S'INSCRIRE</RouterLink>
           </p>
+        </div>
+
+        <!-- Signature créateur -->
+        <div class="mt-10 pt-6 border-t border-slate-100 text-center">
+          <p class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Plateforme développée par</p>
+          <p class="text-[11px] font-black uppercase tracking-[0.4em] text-slate-500 mt-1 hover:text-sky-500 transition-colors cursor-default">⚡ MULTI BRAIN TECH</p>
         </div>
 
         <!-- Floating High-Tech Error -->

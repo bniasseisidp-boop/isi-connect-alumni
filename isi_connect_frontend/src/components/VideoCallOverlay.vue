@@ -38,36 +38,52 @@
         </div>
       </div>
 
-      <!-- Videos -->
+      <!-- Call Area -->
       <div class="flex-1 relative bg-slate-950 overflow-hidden">
-        <!-- Remote video (full) -->
-        <video ref="remoteVideo" autoplay playsinline class="w-full h-full object-cover"></video>
-        <div v-if="!remoteConnected" class="absolute inset-0 flex flex-col items-center justify-center">
-          <div class="h-24 w-24 rounded-[2rem] bg-sky-500/20 flex items-center justify-center mb-4 animate-pulse">
-            <UserCircleIcon class="h-12 w-12 text-sky-400" />
+
+        <!-- Voice only UI -->
+        <div v-if="isVoiceOnly" class="absolute inset-0 flex flex-col items-center justify-center space-y-6">
+          <div class="relative">
+            <div class="h-32 w-32 rounded-full bg-sky-500/10 flex items-center justify-center animate-pulse">
+              <div class="h-24 w-24 rounded-full bg-sky-500/20 flex items-center justify-center">
+                <MicrophoneIcon class="h-12 w-12 text-sky-400" />
+              </div>
+            </div>
+            <div v-if="remoteConnected" class="absolute -bottom-1 -right-1 h-6 w-6 bg-green-500 rounded-full border-4 border-slate-950 animate-ping"></div>
           </div>
-          <p class="text-white font-black">{{ connecting ? 'Connexion...' : 'En attente...' }}</p>
-          <div class="flex space-x-1 mt-3">
+          <p class="text-white font-black text-xl uppercase tracking-widest">{{ activeCall?.callee?.name || activeCall?.caller?.name }}</p>
+          <p class="text-sky-400 text-sm font-bold uppercase tracking-widest">{{ remoteConnected ? 'APPEL EN COURS' : (connecting ? 'Connexion...' : 'En attente...') }}</p>
+          <div v-if="!remoteConnected" class="flex space-x-1">
             <div v-for="i in 3" :key="i" class="h-2 w-2 bg-sky-500 rounded-full animate-bounce" :style="{animationDelay: i*0.15+'s'}"></div>
           </div>
         </div>
 
-        <!-- Local video (pip) -->
-        <div class="absolute bottom-6 right-6 w-32 h-24 md:w-48 md:h-36 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-slate-900">
-          <video ref="localVideo" autoplay playsinline muted class="w-full h-full object-cover scale-x-[-1]"></video>
-        </div>
+        <!-- Video UI -->
+        <template v-else>
+          <video ref="remoteVideo" autoplay playsinline class="w-full h-full object-cover"></video>
+          <div v-if="!remoteConnected" class="absolute inset-0 flex flex-col items-center justify-center">
+            <div class="h-24 w-24 rounded-[2rem] bg-sky-500/20 flex items-center justify-center mb-4 animate-pulse">
+              <UserCircleIcon class="h-12 w-12 text-sky-400" />
+            </div>
+            <p class="text-white font-black">{{ connecting ? 'Connexion...' : 'En attente...' }}</p>
+            <div class="flex space-x-1 mt-3">
+              <div v-for="i in 3" :key="i" class="h-2 w-2 bg-sky-500 rounded-full animate-bounce" :style="{animationDelay: i*0.15+'s'}"></div>
+            </div>
+          </div>
+          <div class="absolute bottom-6 right-6 w-32 h-24 md:w-48 md:h-36 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl bg-slate-900">
+            <video ref="localVideo" autoplay playsinline muted class="w-full h-full object-cover scale-x-[-1]"></video>
+          </div>
+        </template>
       </div>
 
       <!-- Controls -->
       <div class="flex items-center justify-center space-x-6 py-6 bg-slate-900 border-t border-white/5">
         <button @click="toggleMic" class="h-14 w-14 rounded-2xl flex items-center justify-center transition-all" :class="micOn ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-red-500 text-white'">
           <MicrophoneIcon v-if="micOn" class="h-6 w-6" />
-          <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
-          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-6 w-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" /></svg>
         </button>
 
-        <button @click="toggleCam" class="h-14 w-14 rounded-2xl flex items-center justify-center transition-all" :class="camOn ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-red-500 text-white'">
+        <button v-if="!isVoiceOnly" @click="toggleCam" class="h-14 w-14 rounded-2xl flex items-center justify-center transition-all" :class="camOn ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-red-500 text-white'">
           <VideoCameraIcon v-if="camOn" class="h-6 w-6" />
           <VideoCameraSlashIcon v-else class="h-6 w-6" />
         </button>
@@ -96,6 +112,7 @@ const connecting = ref(false)
 const micOn = ref(true)
 const camOn = ref(true)
 const callDuration = ref('00:00')
+const isVoiceOnly = ref(false)
 
 const localVideo = ref(null)
 const remoteVideo = ref(null)
@@ -126,8 +143,9 @@ const STUN_SERVERS = {
 }
 
 // Expose startCall for external use
-const startCall = async (user) => {
-  await setupLocalStream()
+const startCall = async (user, voiceOnly = false) => {
+  isVoiceOnly.value = voiceOnly
+  await setupLocalStream(voiceOnly)
   pc = new RTCPeerConnection(STUN_SERVERS)
   setupPCEvents()
 
@@ -149,7 +167,7 @@ const startCall = async (user) => {
 }
 
 const acceptCall = async () => {
-  await setupLocalStream()
+  await setupLocalStream(isVoiceOnly.value)
   pc = new RTCPeerConnection(STUN_SERVERS)
   setupPCEvents()
   localStream.getTracks().forEach(t => pc.addTrack(t, localStream))
@@ -186,8 +204,8 @@ const endCall = async () => {
   cleanup()
 }
 
-const setupLocalStream = async () => {
-  localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+const setupLocalStream = async (voiceOnly = false) => {
+  localStream = await navigator.mediaDevices.getUserMedia({ video: !voiceOnly, audio: true })
   if (localVideo.value) localVideo.value.srcObject = localStream
 }
 
@@ -264,6 +282,7 @@ const cleanup = () => {
   connecting.value = false
   durationSeconds = 0
   callDuration.value = '00:00'
+  isVoiceOnly.value = false
   processedIceCandidates.clear()
 }
 

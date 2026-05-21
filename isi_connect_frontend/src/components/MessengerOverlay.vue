@@ -10,6 +10,7 @@ import {
   UserCircleIcon,
   SparklesIcon,
   VideoCameraIcon,
+  PhoneIcon,
   PlusIcon,
   MicrophoneIcon,
   PhotoIcon,
@@ -146,9 +147,9 @@ const handleFileUpload = (event) => {
 }
 
 // --- INTEGRATED VIDEO CALL (WebRTC) ---
-const startCall = () => {
+const startCall = (voiceOnly = false) => {
   if (!messengerState.activeChat || !videoCallRef.value) return
-  videoCallRef.value.startCall(messengerState.activeChat)
+  videoCallRef.value.startCall(messengerState.activeChat, voiceOnly)
 }
 
 const scrollToBottom = () => {
@@ -268,7 +269,10 @@ watch(() => messengerState.activeChat, (newVal) => {
              <div v-else><p class="text-[10px] font-black text-slate-400 dark:text-slate-600 uppercase tracking-[0.3rem]">ISI-MESOSPHERE</p></div>
             
              <div class="flex items-center space-x-2">
-               <button v-if="messengerState.activeChat" @click="startCall" class="h-10 w-10 bg-sky-50 dark:bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 hover:bg-sky-500 hover:text-white transition-all">
+               <button v-if="messengerState.activeChat && !messengerState.activeChat.work_group_id" @click="startCall(true)" class="h-10 w-10 bg-green-50 dark:bg-green-500/10 rounded-xl flex items-center justify-center text-green-500 hover:bg-green-500 hover:text-white transition-all" title="Appel vocal">
+                  <PhoneIcon class="h-5 w-5" />
+               </button>
+               <button v-if="messengerState.activeChat && !messengerState.activeChat.work_group_id" @click="startCall(false)" class="h-10 w-10 bg-sky-50 dark:bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 hover:bg-sky-500 hover:text-white transition-all" title="Appel vidéo">
                   <VideoCameraIcon class="h-5 w-5" />
                </button>
                <button @click="toggleMessenger" class="h-10 w-10 bg-slate-50 dark:bg-white/5 rounded-xl flex items-center justify-center text-slate-400 hover:bg-red-500 hover:text-white transition-all">

@@ -153,44 +153,44 @@ const commentInputs = ref({})
     <!-- Post Creation Matrix -->
     <div class="wow-card rounded-3xl md:rounded-[3rem] p-6 md:p-10 bg-white border-4 border-slate-50 shadow-xl shadow-slate-200/50 relative overflow-hidden">
 
-      <div class="flex gap-6">
-        <div class="h-16 w-16 bg-slate-900 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden border-2 border-slate-950 shadow-lg">
+      <div class="flex gap-3 md:gap-6">
+        <div class="h-12 w-12 md:h-16 md:w-16 bg-slate-900 rounded-2xl flex items-center justify-center shrink-0 overflow-hidden border-2 border-slate-950 shadow-lg">
            <img v-if="getUserPhoto(auth.user.value)" :src="getUserPhoto(auth.user.value)" class="h-full w-full object-cover" />
-           <UserCircleIcon v-else class="h-8 w-8 text-slate-700" />
+           <UserCircleIcon v-else class="h-7 w-7 text-slate-700" />
         </div>
-        <div class="flex-1 space-y-6">
-          <div v-if="errorMessage" class="p-5 bg-red-50 border-2 border-red-200 rounded-2xl text-red-500 text-[10px] font-black uppercase tracking-widest animate-pulse">
+        <div class="flex-1 min-w-0 space-y-4">
+          <div v-if="errorMessage" class="p-4 bg-red-50 border-2 border-red-200 rounded-2xl text-red-500 text-[10px] font-black uppercase tracking-widest">
              {{ errorMessage }}
           </div>
-          <textarea 
+          <textarea
             v-model="newPost.body"
             rows="3"
-            class="w-full bg-slate-50 rounded-[2rem] p-8 text-lg font-black placeholder-slate-300 border-2 border-transparent focus:border-sky-500 focus:bg-white transition-all outline-none resize-none shadow-inner"
+            class="w-full bg-slate-50 rounded-2xl p-4 md:p-6 text-sm md:text-base font-bold placeholder-slate-300 border-2 border-transparent focus:border-sky-500 focus:bg-white transition-all outline-none resize-none shadow-inner"
             placeholder="QUOI DE NEUF DANS LE RÉSEAU ?"
           ></textarea>
 
           <!-- Local Preview -->
-          <div v-if="previewUrl" class="relative rounded-[2.5rem] overflow-hidden border-4 border-sky-50 shadow-2xl group/preview max-h-96">
-             <img :src="previewUrl" class="w-full object-contain bg-slate-900" />
-             <button @click="previewUrl = null; newPost.image = null" class="absolute top-4 right-4 h-12 w-12 bg-red-500 text-white rounded-2xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
-                <TrashIcon class="h-6 w-6" />
+          <div v-if="previewUrl" class="relative rounded-2xl overflow-hidden border-4 border-sky-50 shadow-2xl max-h-72">
+             <img :src="previewUrl" class="w-full object-contain bg-slate-100" />
+             <button @click="previewUrl = null; newPost.image = null" class="absolute top-3 right-3 h-10 w-10 bg-red-500 text-white rounded-xl flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
+                <TrashIcon class="h-5 w-5" />
              </button>
           </div>
 
-          <div class="flex items-center justify-between">
-            <label for="post-img" class="flex items-center space-x-3 px-6 py-4 rounded-2xl bg-slate-100 text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-all cursor-pointer font-black text-[10px] uppercase tracking-widest">
-               <PhotoIcon class="h-5 w-5" />
-               <span>AJOUTER MÉDIA</span>
+          <div class="flex flex-wrap items-center gap-3">
+            <label for="post-img" class="flex items-center space-x-2 px-4 py-3 rounded-xl bg-slate-100 text-slate-500 hover:bg-sky-100 hover:text-sky-600 transition-all cursor-pointer font-black text-[10px] uppercase tracking-widest shrink-0">
+               <PhotoIcon class="h-4 w-4" />
+               <span>MÉDIA</span>
                <input type="file" id="post-img" @change="onFileSelected" class="hidden" accept="image/*" />
             </label>
             
-            <button 
+            <button
               @click="handleCreatePost"
               :disabled="isSubmitting || (!newPost.body && !newPost.image)"
-              class="flex items-center space-x-4 bg-slate-950 text-white px-10 py-5 rounded-[1.8rem] font-black text-[10px] uppercase tracking-widest shadow-2xl hover:bg-sky-500 hover:-translate-y-1 transition-all active:scale-95 disabled:opacity-50"
+              class="flex items-center space-x-2 bg-slate-950 text-white px-6 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-xl hover:bg-sky-500 transition-all active:scale-95 disabled:opacity-50 shrink-0 ml-auto"
             >
-              <PaperAirplaneIcon v-if="!isSubmitting" class="h-5 w-5" />
-              <div v-else class="h-5 w-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+              <PaperAirplaneIcon v-if="!isSubmitting" class="h-4 w-4" />
+              <div v-else class="h-4 w-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
               <span>PUBLIER</span>
             </button>
           </div>
