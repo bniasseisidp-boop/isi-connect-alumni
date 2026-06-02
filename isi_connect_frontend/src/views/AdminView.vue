@@ -347,7 +347,7 @@
             <div class="flex-1 flex flex-col justify-between">
               <div class="space-y-6">
                 <p class="text-slate-400 text-sm leading-relaxed">
-                  Importez des centaines de membres d'un coup. Le fichier doit contenir les colonnes : <code class="text-sky-400 font-bold bg-white/5 px-2 py-1 rounded">email, name, promotion_year</code>.
+                  Importez en masse (CSV ouvert via Excel). Colonnes requises dans l'ordre : <code class="text-sky-400 font-bold bg-white/5 px-2 py-1 rounded">prenom ; nom ; adresse ; email ; promotion_year</code>.
                 </p>
 
                 <div class="space-y-2">
@@ -359,7 +359,7 @@
                 </div>
 
                 <div @click="$refs.csvInput.click()" class="border-2 border-dashed border-white/10 rounded-3xl p-10 text-center hover:border-emerald-500/50 transition-all cursor-pointer group">
-                  <input type="file" ref="csvInput" @change="handleFileSelect" class="hidden" accept=".csv">
+                  <input type="file" ref="csvInput" @change="handleFileSelect" class="hidden" accept=".csv,.txt">
                   <div class="h-16 w-16 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                     <span class="text-2xl">☁️</span>
                   </div>
@@ -612,22 +612,19 @@ const handleBulkImport = async () => {
 }
 
 const downloadTemplate = () => {
-  // UTF-8 BOM pour qu'Excel reconnaisse les accents immédiatement
-  const BOM = "\uFEFF";
-  const header = "email;name;promotion_year\n";
+  const BOM = '﻿'
+  const header = 'prenom;nom;adresse;email;promotion_year\n'
   const rows = [
-    "azo@gmail.com;Azo Senghor;2024",
-    "marie.sene@yahoo.fr;Marie Sene;2022"
-  ].join("\n");
-
-
-  
-  const content = BOM + header + rows;
+    'Moussa;Diop;Dakar Plateau;moussa.diop@gmail.com;2024',
+    'Fatou;Sene;Pikine;fatou.sene@yahoo.fr;2023',
+    'Ibrahima;Fall;Thies;ibrahima.fall@outlook.com;2022'
+  ].join('\n')
+  const content = BOM + header + rows
   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'modele_import_isi_alumni.csv'
+  a.download = 'modele_alumni_isi_suptech.csv'
   a.click()
   URL.revokeObjectURL(url)
 }

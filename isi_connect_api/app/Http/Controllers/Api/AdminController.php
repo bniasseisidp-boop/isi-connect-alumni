@@ -179,40 +179,58 @@ class AdminController extends Controller
 
         $file = $request->file('file');
         $handle = fopen($file->getRealPath(), 'r');
-        
-        // Skip header - using semicolon delimiter
-        fgetcsv($handle, 0, ';');
+
+        // Detect delimiter (comma or semicolon)
+        $firstLine = fgets($handle);
+        $delimiter = substr_count($firstLine, ';') >= substr_count($firstLine, ',') ? ';' : ',';
+        rewind($handle);
+
+        // Skip header row
+        fgetcsv($handle, 0, $delimiter);
 
         $importedCount = 0;
         $errors = [];
 
-        while (($row = fgetcsv($handle, 0, ';')) !== false) {
+        while (($row = fgetcsv($handle, 0, $delimiter)) !== false) {
+            // Strip BOM from first cell if present
+            $row[0] = ltrim($row[0], "\xEF\xBB\xBF");
 
-            // Expected format: email, name, promotion_year
-            if (count($row) < 3) continue;
-
-            $email = trim($row[0]);
-            $name = trim($row[1]);
-            $promo = trim($row[2]);
-
-            if (User::where('email', $email)->exists()) {
-                $errors[] = "L'email $email existe déjà.";
+            // Expected format: prenom, nom, adresse, email, promotion_year
+            if (count($row) < 5) {
+                $errors[] = "Ligne ignorée (moins de 5 colonnes) : " . implode(',', $row);
                 continue;
             }
 
-            $defaultPassword = 'ISI-Connect-' . Str::random(6);
+            $prenom  = trim($row[0]);
+            $nom     = trim($row[1]);
+            $adresse = trim($row[2]);
+            $email   = trim($row[3]);
+            $promo   = trim($row[4]);
+
+            $fullName = trim("$prenom $nom");
+
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = "Email invalide : $email";
+                continue;
+            }
+
+            if (User::where('email', $email)->exists()) {
+                $errors[] = "Email déjà existant : $email";
+                continue;
+            }
+
+            $defaultPassword = 'ISI@' . Str::random(8);
 
             $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => Hash::make($defaultPassword),
-                'promotion_year' => $promo,
-                'role' => 'alumni',
-                'must_change_password' => true,
+                'name'           => $fullName,
+                'email'          => $email,
+                'password'       => Hash::make($defaultPassword),
+                'promotion_year' => $promo ?: null,
+                'role'           => 'alumni',
             ]);
 
             $user->profile()->create([
-                'bio' => 'Utilisateur importé en masse.',
+                'city'       => $adresse ?: null,
                 'is_visible' => true,
             ]);
 
@@ -220,15 +238,15 @@ class AdminController extends Controller
                 $user->workGroups()->attach($request->work_group_id, ['role' => 'member']);
             }
 
-            Mail::to($user->email)->send(new UserInvited($user->name, $user->email, $defaultPassword));
+            Mail::to($user->email)->send(new UserInvited($fullName, $email, $defaultPassword));
             $importedCount++;
         }
 
         fclose($handle);
 
         return response()->json([
-            'message' => "$importedCount membres importés avec succès.",
-            'errors' => $errors
+            'message' => "$importedCount membre(s) importé(s) avec succès.",
+            'errors'  => $errors,
         ]);
     }
 
