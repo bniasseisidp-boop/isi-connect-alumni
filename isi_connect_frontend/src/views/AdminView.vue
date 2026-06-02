@@ -347,7 +347,7 @@
             <div class="flex-1 flex flex-col justify-between">
               <div class="space-y-6">
                 <p class="text-slate-400 text-sm leading-relaxed">
-                  Importez en masse (CSV ouvert via Excel). Colonnes requises dans l'ordre : <code class="text-sky-400 font-bold bg-white/5 px-2 py-1 rounded">prenom ; nom ; adresse ; email ; promotion_year</code>.
+                  Importez en masse (CSV ouvert via Excel). Colonnes requises dans l'ordre : <code class="text-sky-400 font-bold bg-white/5 px-2 py-1 rounded">prenom ; nom ; email ; promotion_year</code>.
                 </p>
 
                 <div class="space-y-2">
@@ -613,11 +613,11 @@ const handleBulkImport = async () => {
 
 const downloadTemplate = () => {
   const BOM = '﻿'
-  const header = 'prenom;nom;adresse;email;promotion_year\n'
+  const header = 'prenom;nom;email;promotion_year\n'
   const rows = [
-    'Moussa;Diop;Dakar Plateau;moussa.diop@gmail.com;2024',
-    'Fatou;Sene;Pikine;fatou.sene@yahoo.fr;2023',
-    'Ibrahima;Fall;Thies;ibrahima.fall@outlook.com;2022'
+    'Moussa;Diop;moussa.diop@gmail.com;2024',
+    'Fatou;Sene;fatou.sene@yahoo.fr;2023',
+    'Ibrahima;Fall;ibrahima.fall@outlook.com;2022'
   ].join('\n')
   const content = BOM + header + rows
   const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })

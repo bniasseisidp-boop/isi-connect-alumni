@@ -195,17 +195,16 @@ class AdminController extends Controller
             // Strip BOM from first cell if present
             $row[0] = ltrim($row[0], "\xEF\xBB\xBF");
 
-            // Expected format: prenom, nom, adresse, email, promotion_year
-            if (count($row) < 5) {
-                $errors[] = "Ligne ignorée (moins de 5 colonnes) : " . implode(',', $row);
+            // Expected format: prenom, nom, email, promotion_year
+            if (count($row) < 4) {
+                $errors[] = "Ligne ignorée (moins de 4 colonnes) : " . implode(',', $row);
                 continue;
             }
 
-            $prenom  = trim($row[0]);
-            $nom     = trim($row[1]);
-            $adresse = trim($row[2]);
-            $email   = trim($row[3]);
-            $promo   = trim($row[4]);
+            $prenom = trim($row[0]);
+            $nom    = trim($row[1]);
+            $email  = trim($row[2]);
+            $promo  = trim($row[3]);
 
             $fullName = trim("$prenom $nom");
 
